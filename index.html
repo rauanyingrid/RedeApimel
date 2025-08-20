@@ -9,68 +9,137 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Pré-conecta com crossorigin para fontes do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Importa a fonte Roboto do Google Fonts -->
 </head>
+
+
+
 <body>
-  <!-- Cabeçalho da página, contendo a logo e a navegação -->
+  <!-- Cabeçalho da página-->
   <header class="header">
     <!-- Div para conter a logo do projeto -->
     <div id="logo">
       <img src="img/Logo da Rede Apimel.png" 
       width="300" alt="Logo de Abelha">
     </div>
+
     <!-- Navegação principal do site -->
     <nav>
-      <!-- menu -->
       <ul>
-        <!-- Item da lista contendo um link para a seção "Abelhas" -->
-        <li><a href="#abelhas" class="btn">Abelhas</a></li>
-        <!-- Item da lista contendo um link para a seção "Mudas" -->
-        <li><a href="#mudas" class="btn">Mudas</a></li>
-        <!-- Item da lista contendo um link para a seção "Sobre Nós" -->
-        <li><a href="#sobre" class="btn">Sobre Nós</a></li>
-        <li><a href="#cultura" class="btn">Cultura de Tecidos</a></li>
-        <!-- Item da lista contendo um link para a seção "Contato" -->
-        <li><a href="#contato" class="btn">Contato</a></li>
-  
-        
+        <a href="#mudas">Mudas</a>
+        <a href="#Abelhas">Abelhas</a>
+        <a href="#cultura-tecido">Cultura de Tecidos</a>
+        <a href="#noticias">Notícias</a>
+        <a href="#contato">Contatoa</a>
       </ul>
     </nav>
   </header>
 
-  <!-- Conteúdo principal da página -->
-  <main>
-    <!-- Primeira seção da página -->
-    <section>
-      <!-- Título da seção de boas-vindas -->
-      <h2>Bem-vindo a Rede Apimel!</h2>
-      <!-- Parágrafo de introdução -->
 
-    <img src="img/apic.img"
-      width="192"> 
-      <img src="img/news1.img"
-      width="340" alt="apicultor">
+
+  <main>
+   <!-- Seção dedicada as boas vindas -->
+  <section class="section" id="welcome">
+  <h2>Bem-vindo à Rede Apimel!</h2>
+  <div class="section-content">
+  <!-- Coluna das imagens -->
+    <div class="section-images">
+      <img src="img/bananas.jpg" alt="Apicultura">
+    </div>
+
+  <!-- Coluna do texto -->
+    <div class="section-text">
       <p>Explore o fascinante mundo das abelhas e da cultura de tecidos e descubra como essas áreas se conectam.</p>
-  
-    </section>
+      <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
+    </div>
+  </div>
+  </section>
   </main>
 
   <!-- Seção dedicada ao tema "Abelhas" -->
-  <section id="abelhas">
-    <h2>Abelhas</h2>
-    <img src="img/img.mel.jpg"
-    width="500" alt="abelhas" />
-    <p>Informações detalhadas sobre a biologia, importância e conservação das abelhas.</p>
-    <!-- Conteúdo sobre abelhas virá aqui -->
+<section class="section" id="Abelhas">  
+  <h2>Abelhas</h2>
+  <div class="section-content">
+    <div class="section-images">
+      <img src="img/img.mel.jpg" alt="mudas">
+  </div>
+    <!--Coluna de texto-->
+    <div class="section-text">
+      <p>Explore o fascinante mundo das abelhas e da cultura de tecidos e descubra como essas áreas se conectam.</p>
+      <a href="#abelhas" class="btn-conheca">Conheça Mais</a>
+</section>
 
-    <!--botões de conheça mais-->
-    <a href="#abelhas" class="btn-conheca">Conheça Mais</a>
+<!-- Seção dedicada ao tema "Mudas" -->
+<section class="section" id="mudas">
+  <h2>Mudas</h2>
+  <div class="section-content">
+    <div class="section-images">
+      <img src="img/mudas.png" alt="Mudas de plantas">
+    </div>
+    <!--Coluna de texto-->
+    <div class="section-text">
+      <p>Conheça as mudas utilizadas na apicultura e sua importância para o ecossistema.</p>
+      <a href="#mudas" class="btn-conheca">Conheça Mais</a>
+    </div>
+</section>
 
-  </section>
-  <section id="cultura-tecido">
-    <h2>Cultura de Tecidos</h2>
-    <!-- Parágrafo introdutório sobre cultura de tecidos -->
-    <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa e conservação.</p>
-    <!-- Conteúdo sobre cultura de tecidos virá aqui -->
-  </section>
+
+
+<!-- Seção dedicada ao tema "Cultura de tecidos" -->
+<section class="section" id="cultura-tecido">
+ <div class="card">
+  <h2>Cultura de Tecidos</h2>
+  <div class="section-content">
+    <div class="section-images">
+  <img src="img/cult.jpg" alt="cultura de tecidos">
+  <div class="descricao">
+      <p>Texto explicativo sobre a muda...</p>
+  </div>
+  
+    </div>
+    <!--Coluna de texto-->
+    <div class="section-text">
+  <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa e conservação.</p>
+        <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
+</div>
+</section>
+
+
+
+
+  <!--AREA DE NOTICIAS--> 
+<section id="noticias" class="news">
+  <h2>Últimas Notícias</h2>
+  
+  <div class="news-container">
+    <!-- Notícia 1 -->
+    <article class="news-item">
+      <img src="img/noticia1.jpg" alt="Notícia 1">
+      <h3>Título da notícia 1</h3>
+      <p>Resumo da notícia ou chamada curta para despertar interesse.</p>
+      <a href="#" class="btn">Leia Mais</a>
+    </article>
+
+    <!-- Notícia 2 -->
+    <article class="news-item">
+      <img src="img/noticia2.jpg" alt="Notícia 2">
+      <h3>Título da notícia 2</h3>
+      <p>Outro resumo breve da notícia, com link para página completa.</p>
+      <a href="#" class="btn">Leia Mais</a>
+    </article>
+
+    <!-- Notícia 3 -->
+    <article class="news-item">
+      <img src="img/noticia3.jpg" alt="Notícia 3">
+      <h3>Título da notícia 3</h3>
+      <p>Pequena descrição da terceira notícia de destaque.</p>
+      <a href="#" class="btn">Leia Mais</a>
+    </article>
+  </div>
+</section>
+
+
+
+
+
   
   
 <!--Rodapé-->

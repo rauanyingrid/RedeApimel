@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     /* Aumenta a altura da linha para melhorar a legibilidade */
- line-height: 1.8;
+ line-height: 1.6;
     /* Cor de texto mais escura para contraste */
  color: black;
     /* Fundo amarelo claro, como pólen */
@@ -14,7 +14,7 @@ body {
 /* Estilos do Cabeçalho */
 header {
 
- background-image: url(img/jh.webp);
+ background-color: darkgreen;
     /* Texto escuro no cabeçalho */
  color:white;
     /* Espaçamento interno no cabeçalho (superior/inferior e lateral) */
@@ -36,7 +36,7 @@ header h1 {
   top: 0;
   width: 60px; /* Largura que a logo vai ocupar */
   height: 60px; /* Altura que a logo vai ocupar */
-  margin-top: 2%;
+  margin-top: 3%;
 }
 
 /* Cabeçalho */
@@ -65,25 +65,33 @@ header h1 {
 nav ul {
     /* Coloca os itens da lista lado a lado */
  display: flex;
-    /* Remove os marcadores de lista padrão */
- list-style: none;
     /* Remove a margem padrão */
  margin: 0;
     /* Remove o padding padrão */
- padding: 0;
+ margin-top: 100px; /* Espaçamento superior para o menu */
+    /* Centraliza os itens da lista */
+ justify-content: center;
+    /* Espaçamento entre os itens da lista */
+ gap: 20px;
 }
 
-nav li {
-    /* Adiciona espaço à esquerda de cada item da lista */
- margin-left: 40px;
- margin-top: 15%;
- margin-bottom: -3%;
-}
 nav ul li:first-child {
   margin-left: 0px;}
 
-
-
+.header nav a {
+  background: none;
+  border: 1px none;
+  padding: 5px 10px;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 1px;
+  font-weight: bold;
+}
+.header nav a:hover {
+  background: #ffd700;
+  border-radius: 10px; /* bordas arredondadas */
+}
 
 
 /* Estilos da Seção Principal */
@@ -101,7 +109,7 @@ section {
     /* Fundo branco para os blocos de conteúdo */
  background-color: white;
     /* Bordas arredondadas para uma aparência mais suave */
- border-radius: 6%;
+ border-radius: 10%;
     /* Sombra sutil */
  box-shadow: 0 1px 3px black;
 }
@@ -113,37 +121,37 @@ section h2 {
     margin-top: 0;
 }
 
-nav a {
- text-decoration: none; /* Removes the underline from links */
- color: #333; /* Sets the link color */
- padding: 5px 10px; /* Adds padding to make links easier to click */
-    /* Remove o sublinhado dos links */
- text-decoration: none;
-    /* Define a cor do texto dos links */
- color: white;
-    /* Adiciona padding para tornar a área clicável maior */
- padding: 5px 10px;
+
+.card {
+  position: relative; /* necessário para referência de posição */
+  width: 300px;       /* ajuste conforme sua imagem */
+}
+
+.card img {
+  width: 100%;        /* mantém a imagem responsiva */
+  display: block;
+}
+
+.descricao {
+  margin-top: 1px;     /* pequeno espaço abaixo da imagem */
+  display: flex;       /* permite alinhar conteúdo */
+  flex-direction: column;
+  align-items: flex-start; /* alinha o texto à esquerda */
 }
 
 .btn {
-  background: none;
-  border: 2px none;
-  padding: 10px 10px;
-  text-decoration: none;
-  cursor: pointer;
-  color: white;
-  border-radius: 1px;
-  font-weight: bold;
+  display: inline-block;
+  margin-top: 5px;    /* espaço entre descrição e botão */
 }
-.btn:hover {
-  background: #ffd700;
-  border-radius: 10px; /* bordas arredondadas */
-}
+
+
+
+
 
 /* Estilos da logo */
 #logo img {
  max-width: 150%;
- max-height: 100%;
+ max-height: 130%;
 }
 
 /* RODAPÉ */
@@ -218,3 +226,130 @@ nav a {
     width: 100%;
   }
 }
+
+
+
+
+/* Caixa geral das seções */
+section {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 40px;
+  margin: 40px auto;
+  width: 80%;
+  max-width: 1000px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Flexbox: imagens e texto lado a lado */
+.section-content {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* espaço entre imagem e texto */
+}
+
+/* Coluna das imagens */
+.section-images {
+  flex: 1; /* ocupa metade */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.section-images img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Coluna do texto */
+.section-text {
+  flex: 1; /* ocupa a outra metade */
+}
+
+.section-text h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #c75c1e;
+}
+
+.section-text p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+
+
+
+
+
+/*AREA DE NOTIcias*/
+
+.news {
+  padding: 60px 10%;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.news h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.news-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.news-item {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  flex: 1;
+  min-width: 280px;
+  max-width: 32%; /* três colunas lado a lado */
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+}
+
+.news-item img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.news-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.news-item p {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.news-item .btn {
+  display: inline-block;
+  background: #ffd700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+
+
