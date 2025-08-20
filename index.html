@@ -25,10 +25,10 @@
     <nav>
       <ul>
         <a href="#mudas">Mudas</a>
-        <a href="#Abelhas">Abelhas</a>
+        <a href="#abelhas">Abelhas</a>
         <a href="#cultura-tecido">Cultura de Tecidos</a>
         <a href="#noticias">Notícias</a>
-        <a href="#contato">Contatoa</a>
+        <a href="#contatos">Contatos</a>
       </ul>
     </nav>
   </header>
@@ -36,71 +36,105 @@
 
 
   <main>
-   <!-- Seção dedicada as boas vindas -->
-  <section class="section" id="welcome">
+  <!-- Seção de boas-vindas -->
+<section class="section" id="welcome">
   <h2>Bem-vindo à Rede Apimel!</h2>
   <div class="section-content">
-  <!-- Coluna das imagens -->
+
+    <!-- Coluna das imagens com galeria -->
     <div class="section-images">
-      <img src="img/bananas.jpg" alt="Apicultura">
-    </div>
-
-  <!-- Coluna do texto -->
-    <div class="section-text">
-      <p>Explore o fascinante mundo das abelhas e da cultura de tecidos e descubra como essas áreas se conectam.</p>
-      <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
-    </div>
-  </div>
-  </section>
-  </main>
-
-  <!-- Seção dedicada ao tema "Abelhas" -->
-<section class="section" id="Abelhas">  
-  <h2>Abelhas</h2>
-  <div class="section-content">
-    <div class="section-images">
-      <img src="img/img.mel.jpg" alt="mudas">
-  </div>
-    <!--Coluna de texto-->
-    <div class="section-text">
-      <p>Explore o fascinante mundo das abelhas e da cultura de tecidos e descubra como essas áreas se conectam.</p>
-      <a href="#abelhas" class="btn-conheca">Conheça Mais</a>
-</section>
-
-<!-- Seção dedicada ao tema "Mudas" -->
-<section class="section" id="mudas">
-  <h2>Mudas</h2>
-  <div class="section-content">
-    <div class="section-images">
-      <img src="img/mudas.png" alt="Mudas de plantas">
-    </div>
-    <!--Coluna de texto-->
-    <div class="section-text">
-      <p>Conheça as mudas utilizadas na apicultura e sua importância para o ecossistema.</p>
-      <a href="#mudas" class="btn-conheca">Conheça Mais</a>
-    </div>
-</section>
-
-
-
-<!-- Seção dedicada ao tema "Cultura de tecidos" -->
-<section class="section" id="cultura-tecido">
- <div class="card">
-  <h2>Cultura de Tecidos</h2>
-  <div class="section-content">
-    <div class="section-images">
-  <img src="img/cult.jpg" alt="cultura de tecidos">
-  <div class="descricao">
-      <p>Texto explicativo sobre a muda...</p>
-  </div>
-  
-    </div>
-    <!--Coluna de texto-->
-    <div class="section-text">
-  <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa e conservação.</p>
+      <div class="gallery-container">
+        <img id="welcome-img" src="img/Logo da Rede Apimel.png" alt="Logo da Rede Apimel">
+        <button id="prev-btn" class="gallery-btn">&#10094;</button>
+        <button id="next-btn" class="gallery-btn">&#10095;</button>
+      </div>
+      <div class="descricao" id="img-description">
+        <!-- Descrição da imagem será atualizada pelo JS -->
+        <p>Descrição da imagem mostrando a identidade visual da Rede Apimel.</p>
         <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
-</div>
+      </div>
+    </div>
+
+    <!-- Coluna do texto explicativo -->
+    <div class="section-text">
+      <p>Explore o fascinante mundo das abelhas e da cultura de tecidos, e descubra como essas áreas se conectam para a conservação ambiental.</p>
+    </div>
+
+  </div>
 </section>
+
+
+<script src="main.js"></script>
+</body>
+</html>
+
+
+  <!-- Seção sobre Abelhas -->
+  <section class="section" id="abelhas">
+    <h2>Abelhas</h2>
+    <div class="section-content">
+
+      <!-- Coluna das imagens -->
+      <div class="section-images">
+        <img src="img/img.mel.jpg" alt="Abelhas coletando néctar">
+        <div class="descricao">
+          <p>Abelhas desempenhando seu papel na polinização e produção de mel.</p>
+          <a href="#abelhas" class="btn-conheca">Conheça Mais</a>
+        </div>
+      </div>
+
+      <!-- Coluna do texto -->
+      <div class="section-text">
+        <p>As abelhas são fundamentais para o equilíbrio do ecossistema, garantindo a polinização de diversas plantas e a produção de mel.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Seção sobre Mudas -->
+  <section class="section" id="mudas">
+    <h2>Mudas</h2>
+    <div class="section-content">
+
+      <!-- Coluna das imagens -->
+      <div class="section-images">
+        <img src="img/mudas.png" alt="Mudas de plantas">
+        <div class="descricao">
+          <p>Descrição da imagem mostrando mudas utilizadas na apicultura e na conservação ambiental.</p>
+          <a href="#mudas" class="btn-conheca">Conheça Mais</a>
+        </div>
+      </div>
+
+      <!-- Coluna do texto -->
+      <div class="section-text">
+        <p>As mudas desempenham um papel essencial na apicultura, fornecendo recursos para as abelhas e auxiliando na conservação do ecossistema.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Seção sobre Cultura de Tecidos -->
+  <section class="section" id="cultura-tecido">
+    <h2>Cultura de Tecidos</h2>
+    <div class="section-content">
+
+      <!-- Coluna das imagens -->
+      <div class="section-images">
+        <img src="img/cult.jpg" alt="Cultura de tecidos em laboratório">
+        <div class="descricao">
+          <p>Imagem mostrando técnicas de cultura de tecidos aplicadas em pesquisa e conservação.</p>
+          <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
+        </div>
+      </div>
+
+      <!-- Coluna do texto -->
+      <div class="section-text">
+        <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa científica, conservação de espécies e estudos de genética vegetal.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
 
 
 
@@ -112,26 +146,29 @@
   <div class="news-container">
     <!-- Notícia 1 -->
     <article class="news-item">
-      <img src="img/noticia1.jpg" alt="Notícia 1">
-      <h3>Título da notícia 1</h3>
-      <p>Resumo da notícia ou chamada curta para despertar interesse.</p>
-      <a href="#" class="btn">Leia Mais</a>
+      <img src="img/ferrao.jpn.jpg" alt="Notícia 1">
+      <h3>Veneno de abelhas pode ser o novo aliado contra o câncer</h3>
+      <p>Resumo da notícia sobre apicultura e conservação ambiental. Fonte: <a href="https://www.facebook.com/share/p/179TgtWDSp/" target="_blank">Site de origem</a></p>
+
+      <a href="https://www.facebook.com/share/p/179TgtWDSp/" class="btn">Leia Mais</a>
     </article>
 
     <!-- Notícia 2 -->
     <article class="news-item">
-      <img src="img/noticia2.jpg" alt="Notícia 2">
-      <h3>Título da notícia 2</h3>
-      <p>Outro resumo breve da notícia, com link para página completa.</p>
-      <a href="#" class="btn">Leia Mais</a>
+      <img src="img/fenologia.png" alt="Notícia 2">
+      <h3>O segredo do mel</h3>
+      <p>Resumo da notícia sobre apicultura e conservação ambiental. Fonte: G1.globo <a href="https://g1.globo.com/" target="_blank"></a></p>
+
+      <a href="https://g1.globo.com/ac/acre/noticia/2025/02/17/do-campo-ao-supermercado-producao-de-mel-vira-fonte-de-renda-para-familias-de-apicultores-no-acre.ghtml" class="btn">Leia Mais</a>
     </article>
 
     <!-- Notícia 3 -->
     <article class="news-item">
-      <img src="img/noticia3.jpg" alt="Notícia 3">
-      <h3>Título da notícia 3</h3>
-      <p>Pequena descrição da terceira notícia de destaque.</p>
-      <a href="#" class="btn">Leia Mais</a>
+      <img src="img/hidromel.png" alt="Notícia 3">
+      <h3>O Hidromel ou "vinho de mel"</h3>
+      <p>Resumo da notícia sobre apicultura e conservação ambiental. Fonte: <a href="https://eshoje.com.br/" target="_blank">Es hoje</a></p>
+
+      <a href="https://eshoje.com.br/geral/cidades/2019/01/o-hidromel-ou-vinho-de-mel-e-produzido-na-area-rural-de-viana/" class="btn">Leia Mais</a>
     </article>
   </div>
 </section>
@@ -142,22 +179,17 @@
 
   
   
-<!--Rodapé-->
+  <!--Rodapé-->
+  <footer id="contatos"> 
+  <h2>Contatos</h2>
 
-    <!-- Contato -->
-    <div class="footer-col">
-      <h3>Contato</h3>
-      <p>Email: contato@redeapimel.com.br</p>
-      <p>Telefone: (79) 99999-9999</p>
-    </div>
-
-    <!-- Redes sociais -->
-    <div class="footer-col">
-      <h3>Siga-nos</h3>
-      <a href="#">Facebook</a> | 
-      <a href="#">Instagram</a> | 
-      <a href="#">YouTube</a>
-    </div>
+  <div class="footer-col"></div>
+    <p>Email: contato@redeapimel.com.br</p>
+    <p>Telefone: (79) 99999-9999</p>
+     
+    <a href="#">Facebook</a> | 
+    <a href="#">Instagram</a> | 
+    <a href="#">YouTube</a>
   </div>
 
   <!-- Linha final -->
