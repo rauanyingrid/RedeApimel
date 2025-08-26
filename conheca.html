@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conheça Mais - Rede Apimel</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f9;
+      color: #333;
+    }
+
+    /* Cabeçalho moderno */
+    header {
+      background: linear-gradient(80deg, #f7c31a, #99d516);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #conteudo img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    #conteudo img:hover {
+      transform: scale(1.02);
+    }
+
+    #conteudo h2 {
+      margin-top: 1.5rem;
+      color: #444;
+    }
+
+    #conteudo p, #conteudo ul {
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* Botão "Voltar ao site" discreto */
+    .btn-voltar {
+      display: inline-block;
+      padding: 8px 16px;
+      margin-top: 20px;
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-weight: normal;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn-voltar:hover {
+      background: #f0f0f0;
+      border-color: #999;
+    }
+
+    /* Rodapé limpo */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      background: none;
+      color: #333;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1 id="titulo">Conheça Mais</h1>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <section id="conteudo">
+      <!-- Conteúdo carregado via JS -->
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 Rede Apimel. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Script para carregar conteúdo dinamicamente -->
+  <script>
+    function getParametro(nome) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(nome);
+    }
+
+    const conteudos = {
+      welcome: {
+        titulo: "Bem-vindo à Rede Apimel",
+        imagem: "img/Logo da Rede Apimel.png",
+        texto: `
+          <p>As abelhas são fundamentais para o equilíbrio ambiental e a produção de alimentos.</p>
+          <h2>Ameaças</h2>
+          <p>Agrotóxicos, mudanças climáticas e desmatamento afetam a população de abelhas.</p>
+          <h2>Como ajudar</h2>
+          <ul>
+            <li>Plante flores nativas;</li>
+            <li>Evite pesticidas;</li>
+            <li>Apoie a apicultura sustentável.</li>
+          </ul>
+        `
+      },
+      abelhas: {
+        titulo: "O Mundo das Abelhas",
+        imagem: "img/img.mel.jpg",
+        texto: `
+          <p>O mel é produzido pelas abelhas a partir do néctar das flores.</p>
+          <h2>Processo de Produção</h2>
+          <p>As abelhas transformam o néctar em mel, armazenando-o em favos.</p>
+          <h2>Curiosidade</h2>
+          <p>Para produzir 1kg de mel, podem visitar até 4 milhões de flores!</p>
+        `
+      },
+      mudas: {
+        titulo: "Mudas e Conservação",
+        imagem: "img/mudas.png",
+        texto: `
+          <p> A muda, de forma geral, é o estágio inicial da planta. São plantas bem jovens, que precisam de um cuidado mais especial até ficarem formadas e levadas para o local onde permanecerão até adultas. Tecnicamente, uma muda é considerada formada quando a parte da planta apresenta raiz abundante e várias folhas. </p>
+          <h2>Benefícios</h2>
+          <ul>
+            <li> Absorvem o gás carbônico;</li>
+            <li> Reduzem gastos na quantidade de insumos;</li>
+            <li>Conservação da biodiversidade.</li>
+          </ul>
+        `
+      },
+      culturatecidos: {
+        titulo: "Cultura de Tecidos",
+        imagem: "img/cult.jpg",
+        texto: `
+          <p>Técnica de propagação de plantas em ambiente controlado.</p>
+          <h2>Aplicações</h2>
+          <ul>
+            <li>Produção de mudas livres de doenças;</li>
+            <li>Conservação de espécies ameaçadas;</li>
+            <li>Pesquisa genética e melhoramento de plantas.</li>
+          </ul>
+        `
+      }
+    };
+
+    const topico = getParametro("topico");
+    const conteudoEl = document.getElementById("conteudo");
+
+    if (conteudos[topico]) {
+      conteudoEl.innerHTML = `
+        <h2>${conteudos[topico].titulo}</h2>
+        <img src="${conteudos[topico].imagem}" alt="${conteudos[topico].titulo}">
+        ${conteudos[topico].texto}
+        <a href="index.html" class="btn-voltar">⬅ Voltar ao site</a>
+      `;
+    } else {
+      conteudoEl.innerHTML = "<p>Assunto não encontrado.</p>";
+    }
+  </script>
+
+</body>
+</html>

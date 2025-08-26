@@ -54,7 +54,7 @@
       <div class="descricao" id="img-description">
         <!-- Descrição da imagem será atualizada pelo JS -->
         <p>Descrição da imagem mostrando a identidade visual da Rede Apimel.</p>
-        <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
+        <button class="btn-conheca" onclick="window.location.href='conheca.html?topico=welcome'">Conheça mais</button>
       </div>
     </div>
 
@@ -82,7 +82,8 @@
         <img src="img/img.mel.jpg" alt="Abelhas coletando néctar">
         <div class="descricao">
           <p>Abelhas desempenhando seu papel na polinização e produção de mel.</p>
-          <a href="#abelhas" class="btn-conheca">Conheça Mais</a>
+              <button class="btn-conheca" onclick="window.location.href='conheca.html?topico=abelhas'">Conheça mais</button>
+
         </div>
       </div>
 
@@ -104,7 +105,10 @@
         <img src="img/mudas.png" alt="Mudas de plantas">
         <div class="descricao">
           <p>Descrição da imagem mostrando mudas utilizadas na apicultura e na conservação ambiental.</p>
-          <a href="#mudas" class="btn-conheca">Conheça Mais</a>
+        <button class="btn-conheca" onclick="window.location.href='conheca.html?topico=mudas'">Conheça mais</button>
+
+
+      
         </div>
       </div>
 
@@ -117,7 +121,7 @@
   </section>
 
   <!-- Seção sobre Cultura de Tecidos -->
-  <section class="section" id="cultura-tecido">
+  <section class="section" id="culturatecido">
     <h2>Cultura de Tecidos</h2>
     <div class="section-content">
 
@@ -126,7 +130,7 @@
         <img src="img/cult.jpg" alt="Cultura de tecidos em laboratório">
         <div class="descricao">
           <p>Imagem mostrando técnicas de cultura de tecidos aplicadas em pesquisa e conservação.</p>
-          <a href="#cultura-tecido" class="btn-conheca">Conheça Mais</a>
+          <button class="btn-conheca" onclick="window.location.href='conheca.html?topico=culturatecidos'">Conheça mais</button>
         </div>
       </div>
 
@@ -140,138 +144,24 @@
 </main>
 <link rel="stylesheet" href="style.css">
 
-  <!--AREA DE NOTICIAS--> 
-<section class="news">
+<!-- Notícias -->
+<section class="news" id="noticias">
   <h2>Notícias</h2>
   <div id="rss-feed" class="news-container"></div>
-  
 </section>
 
-
-
-<script>
-  // Palavras-chave que você quer monitorar
-  const keywords = ["abelhas", "been", "hidromel", "honey", "apitoquicina", "meliponicultura", "pollen", "polinização", "palinologia", "fenologia", "apicultura", "cultura de tecidos", "conservação de abelhas", "beekeeping", "mel", "nectar", "colmeia", "apiário", "propolis", "cera de abelha", "floral"];
-
-  // Feeds de onde buscar as notícias
-  const feeds = [
-    { url: "https://g1.globo.com/dynamo/natureza/rss2.xml", fonte: "G1 Natureza" },
-    { url: "https://agenciabrasil.ebc.com.br/rss/meio-ambiente/feed.xml", fonte: "Agência Brasil" },
-    { url: "https://revistagloborural.globo.com/rss/ultimas/feed.xml", fonte: "Globo Rural" },
-    { url: "https://blog.epagri.sc.gov.br/index.php/category/apicultura/feed/", fonte: "Blog Epagri - Apicultura" }
-  ];
-
-  // Função para buscar imagem relacionada à notícia
-  function getImageForNews(keyword) {
-    const map = {
-      "abelhas": "bees",
-      "hidromel": "honey",
-      "apitoquicina": "bees",
-      "meliponicultura": "stingless-bee",
-      "polinização": "pollination",
-      "palinologia": "pollen",
-      "fenologia": "nature",
-      "apicultura": "beekeeping",
-      "cultura de tecidos": "plants",
-      "conservação de abelhas": "save-bees"
-    };
-
-    let query = map[keyword] || "nature";
-    return `https://source.unsplash.com/600x400/?${encodeURIComponent(query)}`;
-  }
-
-  // Função para carregar 1 feed
-  async function carregarFeed(feed) {
-    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
-    try {
-      let res = await fetch(apiUrl);
-      let data = await res.json();
-      return data.items.map(item => ({
-        title: item.title,
-        link: item.link,
-        description: item.description,
-        date: new Date(item.pubDate),
-        source: feed.fonte
-      }));
-    } catch (err) {
-      console.error("Erro ao carregar", feed.fonte, err);
-      return [];
-    }
-  }
-
-  // Função principal
-  async function carregarNoticias() {
-    let container = document.getElementById("rss-feed");
-    container.innerHTML = "Carregando notícias...";
-
-    let todasNoticias = [];
-
-    // Junta todas as notícias de todas as fontes
-    for (let feed of feeds) {
-      let noticias = await carregarFeed(feed);
-      todasNoticias = todasNoticias.concat(noticias);
-    }
-
-    // Filtra pelas palavras-chave
-    let filtradas = todasNoticias.filter(item =>
-      keywords.some(kw =>
-        item.title.toLowerCase().includes(kw) ||
-        item.description.toLowerCase().includes(kw)
-      )
-    );
-
-    // Ordena pela data (mais recentes primeiro)
-    filtradas.sort((a, b) => b.date - a.date);
-
-    // Limpa container
-    container.innerHTML = "";
-
-    if (filtradas.length === 0) {
-      container.innerHTML = "<p>Nenhuma notícia encontrada com as palavras-chave.</p>";
-      return;
-    }
-
-    // Renderiza no HTML
-    filtradas.forEach(item => {
-      // pega a primeira palavra-chave encontrada no título/descrição
-      let keyword = keywords.find(kw => item.title.toLowerCase().includes(kw) || item.description.toLowerCase().includes(kw));
-      let imgUrl = keyword ? getImageForNews(keyword) : getImageForNews("nature");
-
-      let div = document.createElement("div");
-      div.classList.add("news-item");
-      div.innerHTML = `
-        <img src="${imgUrl}" alt="${item.title}">
-        <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
-        <p>${item.description.substring(0, 120)}...</p>
-        <p class="source">Fonte: ${item.source}</p>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  // Chama a função assim que a página carregar
-  carregarNoticias();
-
-  
-</script>
-
-
-
-  
-  
-  <!--Rodapé-->
-  <footer id="contatos"> 
+<!-- Rodapé -->
+<footer id="contatos"> 
   <h2>Contatos</h2>
 
-  <div class="footer-col"></div>
+  <div class="footer-col">
     <p>Email: redeapimel@gmail.com</p>
     <p>Telefone: (79) 99999-9999</p>
      
-  <div class="footer-links">
-    <a href="#">Instagram</a> 
+    <div class="footer-links">
+      <a href="#">Instagram</a> 
+    </div>
   </div>
-</div>
-
 
  <!-- Mapa -->
   <div class="footer-map">

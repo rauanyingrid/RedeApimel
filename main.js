@@ -63,8 +63,7 @@ imgElement.onerror = () => console.error("Erro ao carregar imagem: " + galleryDa
 
 // ================= NOTÍCIAS + UNSPLASH =================
 
-// Substitua pela sua Access Key do Unsplash
-const UNSPLASH_ACCESS_KEY = "SUA_ACCESS_KEY_AQUI";
+const UNSPLASH_ACCESS_KEY = "kRlxFUuqs5GjPR_aCo9I_SYQ8Xzx2V8T0nGSGWwPRD8";
 
 // Palavras-chave para buscar notícias
 const KEYWORDS = [
@@ -78,88 +77,116 @@ async function fetchNews() {
   const query = KEYWORDS.join(" OR ");
   const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=pt-BR&gl=BR&ceid=BR:pt-419`;
 
-  const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-  const data = await response.json();
+  try {
+    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
 
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(data.contents, "text/xml");
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, "text/xml");
 
-  const items = xml.querySelectorAll("item");
-  const newsList = [];
+    const items = xml.querySelectorAll("item");
+    const newsList = [];
 
-  items.forEach(item => {
-    newsList.push({
-      title: item.querySelector("title").textContent,
-      link: item.querySelector("link").textContent,
-      description: item.querySelector("description")?.textContent || ""
+    items.forEach(item => {
+      newsList.push({
+        title: item.querySelector("title")?.textContent || "Título não disponível",
+        link: item.querySelector("link")?.textContent || "#",
+        description: item.querySelector("description")?.textContent || "",
+        source: item.querySelector("source")?.textContent || "Fonte desconhecida",
+        sourceUrl: item.querySelector("source")?.getAttribute("url") || "#"
+      });
     });
-  });
 
-  return newsList.slice(0, 6); // pega as 9 mais recentes
+    return newsList.slice(0, 3); // pega as 3 mais recentes
+  } catch (error) {
+    console.error("Erro ao buscar notícias:", error);
+    return [];
+  }
 }
 
-// Buscar imagem no Unsplash com base no título
+// Buscar imagem no Unsplash com fallback seguro
+
 async function getUnsplashImage(query) {
-  const url = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&client_id=${UNSPLASH_ACCESS_KEY}&orientation=landscape`;
+  const accessKey = "kRlxFUuqs5GjPR_aCo9I_SYQ8Xzx2V8T0nGSGWwPRD8"; 
+
+  const keywords = ["bee", "honey", "beekeeping", "flowers", "nature", "environment"];
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.urls?.regular || "img/default.jpg"; // fallback
+    //tenta pelo título da notícia
+    let response = await fetch(
+      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape&client_id=${accessKey}`
+    );
+    let data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      return data.results[0].urls.small;
+    }
+
+    //se não encontrou, sorteia uma palavra-chave da lista
+    const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
+    response = await fetch(
+      `https://api.unsplash.com/search/photos?query=${randomKeyword}&per_page=1&orientation=landscape&client_id=${accessKey}`
+    );
+    data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      return data.results[0].urls.small;
+    }
+
+    //se não veio nada, cai no fallback
+    return "img/default.jpg";
+
   } catch (error) {
-    console.error("Erro ao buscar imagem no Unsplash:", error);
+    console.error("Erro ao buscar imagem do Unsplash:", error);
     return "img/default.jpg";
   }
 }
 
-// Montar notícia no HTML
+
+// Montar notícia no HTML com fallback de imagem
 async function renderNewsItem(news) {
-  const imageUrl = await getUnsplashImage(news.title);
+  let imageUrl = "img/default.jpg"; // fallback inicial
+
+  try {
+    // tenta buscar imagem relacionada no Unsplash
+    imageUrl = await getUnsplashImage(news.title);
+  } catch (e) {
+    console.warn("Usando imagem padrão para:", news.title);
+  }
 
   return `
     <div class="news-item">
-      <img src="${imageUrl}" alt="${news.title}" style="width:100%; border-radius:10px; margin-bottom:10px;" />
+      <img src="${imageUrl}" 
+           alt="${news.title}" 
+           style="width:100%; border-radius:10px; margin-bottom:10px;" 
+           onerror="this.src='img/default.jpg'" />
       <h3>${news.title}</h3>
       <p>${news.description}</p>
+      <p><strong>Fonte:</strong> 
+        <a href="${news.sourceUrl}" target="_blank">${news.source}</a>
+      </p>
       <a href="${news.link}" target="_blank">Ler mais</a>
     </div>
   `;
 }
 
-// Renderizar as notícias, garantindo máximo de 6
+
+// Renderizar todas as notícias em paralelo
 async function renderNews() {
   const container = document.querySelector(".news-container");
   if (!container) return;
 
   container.innerHTML = "<p>Carregando notícias...</p>";
 
-  let news = [];
-  try {
-    news = await fetchNews();
-  } catch (error) {
-    console.error("Erro ao buscar notícias:", error);
-    container.innerHTML = "<p>Não foi possível carregar as notícias.</p>";
-    return;
-  }
+  const news = await fetchNews();
 
   if (!news.length) {
     container.innerHTML = "<p>Nenhuma notícia disponível.</p>";
     return;
   }
 
-  // Limita a 6 notícias de forma segura
-  const maxNews = 6;
-  const newsToRender = news.slice(0, maxNews);
-
-  // Renderiza cada notícia e evita duplicações
-  const newsHTML = [];
-  for (let i = 0; i < newsToRender.length; i++) {
-    const itemHTML = await renderNewsItem(newsToRender[i]);
-    // Garante que apenas strings válidas sejam adicionadas
-    if (typeof itemHTML === "string" && itemHTML.trim() !== "") {
-      newsHTML.push(itemHTML);
-    }
-  }
+  const newsToRender = news.slice(0, 6); // garante máximo de 6 notícias
+  const newsHTML = await Promise.all(newsToRender.map(newsItem => renderNewsItem(newsItem)));
 
   container.innerHTML = newsHTML.join("");
 }
@@ -168,6 +195,3 @@ async function renderNews() {
 document.addEventListener("DOMContentLoaded", () => {
   renderNews();
 });
-
-
-
