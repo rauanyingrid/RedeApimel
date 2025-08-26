@@ -134,15 +134,6 @@ section h2 {
   align-items: flex-start;  /* botão alinhado à esquerda */
 }
 
-.btn-conheca {
-  margin-top: 10px;             /* espaço entre texto e botão */
-  font-size: 12px;             /* botão pequeno */
-  padding: 3px 8px;            /* menos espaço interno */
-  color: purple;             /* texto roxo */
-  text-decoration: underline;  /* texto sublinhado */
-}
-
-
 
 /* Estilos da logo */
 #logo img {
@@ -196,12 +187,13 @@ section {
 }
 
 .btn-conheca {
-  display: inline-block;
+  display: inline-block; 
   padding: 5px 12px;
-  font-size: 0.8rem;
-  color: #fff;
-  background-color: #c75c1e;
-  border-radius: 5px;
+  font-size: 0.8rem; 
+  color: #fff; 
+  background-color: #c75c1e; 
+  border-radius: 4px;
+  border-color: #c75c1e;
   text-decoration: none;
   transition: background 0.3s, transform 0.3s;
 }
