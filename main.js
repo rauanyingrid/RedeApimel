@@ -185,7 +185,7 @@ async function renderNews() {
     return;
   }
 
-  const newsToRender = news.slice(0, 6); // garante máximo de 6 notícias
+  const newsToRender = news.slice(0, 3); // garante máximo de 6 notícias
   const newsHTML = await Promise.all(newsToRender.map(newsItem => renderNewsItem(newsItem)));
 
   container.innerHTML = newsHTML.join("");
