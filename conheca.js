@@ -1,52 +1,72 @@
-const CONTENT = {
-  apicultura: {
-    title: "Apicultura",
-    text: `
-      A apicultura é a prática da criação de abelhas com ferrão para a produção de mel,
-      própolis, cera e outros produtos. Ela desempenha um papel essencial para a polinização
-      e sustentabilidade ambiental, além de ter grande importância econômica.
-    `
-  },
-  polinizacao: {
-    title: "Polinização",
-    text: `
-      A polinização é o processo pelo qual o pólen é transferido de uma flor para outra,
-      permitindo a reprodução das plantas. As abelhas são os principais agentes desse processo,
-      garantindo a biodiversidade e a produção de alimentos.
-    `
-  },
-  meliponicultura: {
-    title: "Meliponicultura",
-    text: `
-      A meliponicultura é a criação de abelhas nativas sem ferrão. Essa prática vem crescendo no Brasil,
-      pois além de preservar espécies nativas, gera produtos como o mel de abelha sem ferrão,
-      muito valorizado pela sua qualidade.
-    `
-  }
+// ===================== DADOS DE CONTEÚDO =====================
+const conteudos = {
+  abelhas: [
+    { titulo: "O Mundo das Abelhas", imagem: "https://images.unsplash.com/photo-1572083279623-45e0f84d8f87?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Descubra curiosidades sobre as abelhas e sua importância na produção de mel." },
+    { titulo: "Tipos de Abelhas", imagem: "https://images.unsplash.com/photo-1571781920724-109a6f0f8463?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Conheça diferentes espécies de abelhas e suas características." },
+    { titulo: "Ciclo de Vida", imagem: "https://images.unsplash.com/photo-1594646188495-3b6b3f94d0e1?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Aprenda sobre o ciclo de vida de uma colônia de abelhas." }
+  ],
+  mudas: [
+    { titulo: "Mudas e Conservação", imagem: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Mudas ajudam na conservação da biodiversidade e no equilíbrio ambiental." },
+    { titulo: "Como Plantar Mudas", imagem: "https://images.unsplash.com/photo-1589903612610-4b86f0e7b71a?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Aprenda técnicas de plantio para aumentar a taxa de sobrevivência das mudas." },
+    { titulo: "Cuidados com as Mudas", imagem: "https://images.unsplash.com/photo-1600508774215-1c7a887b4d62?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Saiba como regar, adubar e proteger suas mudas." }
+  ],
+  culturatecidos: [
+    { titulo: "Cultura de Tecidos", imagem: "https://images.unsplash.com/photo-1581090700227-87788fa6c3a6?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Técnica de propagação de plantas em ambiente controlado para conservação." },
+    { titulo: "Laboratório de Cultura", imagem: "https://images.unsplash.com/photo-1581092795368-2b1d6e7a78d8?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Conheça o ambiente controlado onde as plantas são cultivadas." },
+    { titulo: "Benefícios da Técnica", imagem: "https://images.unsplash.com/photo-1581092331493-0c2bc39f1d9f?crop=entropy&cs=tinysrgb&fit=max&h=300&w=400", resumo: "Entenda como a cultura de tecidos contribui para a biodiversidade." }
+  ]
 };
 
-// Função para pegar parâmetros da URL
+// ===================== ELEMENTOS DA PÁGINA =====================
+const introEl = document.getElementById("intro"); // Bloco introdutório
+const conteudoEl = document.getElementById("conteudo"); // Grid de cards
+const titHeader = document.getElementById("titulo"); // Título do cabeçalho
 
-function getQueryParam(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param); // retorna o valor do parâmetro
+// ===================== FUNÇÃO PARA OBTER TÓPICO DA URL =====================
+function getTopicoURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("topico") || "abelhas"; // Padrão: abelhas
 }
 
-// Função que carrega o conteúdo
-function loadContent() {
-  // Pega o parâmetro "topic" da URL
-  const topic = getQueryParam("topic");
+// ===================== FUNÇÃO PARA ATUALIZAR CONTEÚDO =====================
+function atualizarConteudo(topico) {
+  const itens = conteudos[topico];
 
-  // Se o tópico existe dentro do objeto CONTENT, exibe o conteúdo
-  if (topic && CONTENT[topic]) {
-    document.getElementById("page-title").textContent = CONTENT[topic].title;
-    document.getElementById("content").innerHTML = `<p>${CONTENT[topic].text}</p>`;
-  } else {
-    // Caso o usuário acesse um tópico que não existe
-    document.getElementById("page-title").textContent = "Assunto não encontrado";
-    document.getElementById("content").innerHTML = `<p>O conteúdo solicitado não está disponível.</p>`;
+  // Se o tópico não existe
+  if (!itens) {
+    introEl.innerHTML = "<p>Tópico não encontrado.</p>";
+    conteudoEl.innerHTML = "";
+    titHeader.textContent = "Conheça Mais";
+    return;
+  }
+
+  // Atualiza o título do cabeçalho
+  titHeader.textContent = `Conheça Mais - ${topico.charAt(0).toUpperCase() + topico.slice(1)}`;
+
+  // Primeiro item como bloco introdutório
+  const introItem = itens[0];
+  introEl.innerHTML = `
+    <img src="${introItem.imagem}" alt="${introItem.titulo}">
+    <h2>${introItem.titulo}</h2>
+    <p>${introItem.resumo}</p>
+  `;
+
+  // Cria os cards restantes
+  conteudoEl.innerHTML = "";
+  for (let i = 1; i < itens.length; i++) {
+    const item = itens[i];
+    conteudoEl.innerHTML += `
+      <div class="card">
+        <img src="${item.imagem}" alt="${item.titulo}">
+        <div class="card-content">
+          <h2>${item.titulo}</h2>
+          <p>${item.resumo}</p>
+        </div>
+      </div>
+    `;
   }
 }
 
-// Executa a função quando a página carregar
-document.addEventListener("DOMContentLoaded", loadContent);
+// ===================== INICIALIZAÇÃO =====================
+const topicoAtual = getTopicoURL();
+atualizarConteudo(topicoAtual);
