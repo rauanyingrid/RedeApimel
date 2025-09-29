@@ -1,197 +1,349 @@
-// Lista de imagens e descrições correspondentes
-const galleryData = [
-  {
-    src: "img/Logo da Rede Apimel.png",
-    description: "Descrição da imagem mostrando a identidade visual da Rede Apimel."
-  },
-  {
-    src: "img/sergipetec.png",
-    description: "Imagem de uma abelha coletando néctar em uma banana."
-  },
-  {
-    src: "img/img.logo.jpg",
-    description: "Abelhas em flores, fundamentais para a polinização."
-  }
-];
-
-let index = 0;
-const imgElement = document.getElementById("welcome-img");
-const descriptionElement = document.getElementById("img-description").querySelector("p");
-
-// Função para mostrar imagem e descrição com fade
-function showImage(i) {
-  imgElement.style.opacity = 0; // fade out
-  setTimeout(() => {
-    imgElement.src = galleryData[i].src;
-    descriptionElement.textContent = galleryData[i].description;
-    imgElement.style.opacity = 1; // fade in
-  }, 300);
-}
-
-// Alternância automática
-let interval = setInterval(() => {
-  index = (index + 1) % galleryData.length;
-  showImage(index);
-}, 3000);
-
-// Botões de navegação
-document.getElementById("prev-btn").addEventListener("click", () => {
-  index = (index - 1 + galleryData.length) % galleryData.length;
-  showImage(index);
-  resetInterval();
-});
-
-document.getElementById("next-btn").addEventListener("click", () => {
-  index = (index + 1) % galleryData.length;
-  showImage(index);
-  resetInterval();
-});
-
-// Reinicia o intervalo quando usuário clica nos botões
-function resetInterval() {
-  clearInterval(interval);
-  interval = setInterval(() => {
-    index = (index + 1) % galleryData.length;
-    showImage(index);
-  }, 3000);
-}
-
-// Mensagem de erro caso a imagem não carregue
-imgElement.onerror = () => console.error("Erro ao carregar imagem: " + galleryData[index].src);
-
-
-
-// ================= NOTÍCIAS + UNSPLASH =================
+// ================= NOTÍCIAS + RSS CORRIGIDO =================
 
 const UNSPLASH_ACCESS_KEY = "kRlxFUuqs5GjPR_aCo9I_SYQ8Xzx2V8T0nGSGWwPRD8";
 
-// Palavras-chave para buscar notícias
 const KEYWORDS = [
-  "abelhas", "hidromel", "apitoquicina", "meliponicultura",
-  "polinização", "palinologia", "fenologia", "apicultura",
-  "cultura de tecidos", "conservação de abelhas"
+    "abelhas", "criação de abelhas", "hidromel", "apicultura", "meliponicultura", "colmeias racionais", "fauna polinizadora", "cera de abelha", "derivados do mel",
+    "polinização", "abelhas nativas", "produção de mel", "vespa africana", "controle de pragas", "apitoxina", "mel puro", "própolis", "veneno de abelha",
+    "meio ambiente", "abelhas solitárias", "polinizadores", "inovação na apicultura", "tecnologia apícola", "sanidade apícola",  "apicultura sustentável", "Apis mellifera"
 ];
 
-// Buscar notícias via Google News RSS
+// Alternativa 1: Usando CORS Proxy alternativo
 async function fetchNews() {
-  const query = KEYWORDS.join(" OR ");
-  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=pt-BR&gl=BR&ceid=BR:pt-419`;
+    const query = KEYWORDS.join(" OR ");
+    
+    // Tentar diferentes proxies
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`,
+        `https://corsproxy.io/?${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`,
+        `https://thingproxy.freeboard.io/fetch/https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=pt-BR&gl=BR&ceid=BR:pt-419`
+    ];
 
-  try {
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-    const data = await response.json();
+    for (let proxyUrl of proxies) {
+        try {
+            console.log(`Tentando proxy: ${proxyUrl}`);
+            const response = await fetch(proxyUrl, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                }
+            });
+            
+            if (!response.ok) continue;
+            
+            const text = await response.text();
+            console.log("Resposta recebida:", text.substring(0, 500)); // Debug
 
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "text/xml");
+            return parseRSS(text);
+            
+        } catch (error) {
+            console.warn(`Proxy falhou: ${error.message}`);
+            continue;
+        }
+    }
+    
+    throw new Error("Todos os proxies falharam");
+}
 
-    const items = xml.querySelectorAll("item");
-    const newsList = [];
+// Alternativa 2: RSS Brasileiro específico para meio ambiente
+async function fetchBrazilianNews() {
+    const rssFeeds = [
+        'https://g1.globo.com/rss/g1/ciencia-e-meio-ambiente/',
+        'https://www.embrapa.br/rss/noticias/meio-ambiente',
+        'https://agenciabrasil.ebc.com.br/rss/geral/feed.xml',
+        'https://www.mma.gov.br/index.php/rss-noticias'
+    ];
 
-    items.forEach(item => {
-      newsList.push({
-        title: item.querySelector("title")?.textContent || "Título não disponível",
-        link: item.querySelector("link")?.textContent || "#",
-        description: item.querySelector("description")?.textContent || "",
-        source: item.querySelector("source")?.textContent || "Fonte desconhecida",
-        sourceUrl: item.querySelector("source")?.getAttribute("url") || "#"
-      });
-    });
-
-    return newsList.slice(0, 3); // pega as 3 mais recentes
-  } catch (error) {
-    console.error("Erro ao buscar notícias:", error);
+    for (let feed of rssFeeds) {
+        try {
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feed)}`;
+            const response = await fetch(proxyUrl);
+            
+            if (response.ok) {
+                const text = await response.text();
+                const news = parseRSS(text);
+                
+                // Filtrar notícias relevantes
+                const filteredNews = news.filter(item => 
+                    KEYWORDS.some(keyword => 
+                        item.title.toLowerCase().includes(keyword.toLowerCase()) ||
+                        item.description.toLowerCase().includes(keyword.toLowerCase())
+                    )
+                );
+                
+                if (filteredNews.length > 0) {
+                    return filteredNews.slice(0, 3);
+                }
+            }
+        } catch (error) {
+            console.warn(`Feed ${feed} falhou:`, error);
+        }
+    }
+    
     return [];
-  }
 }
 
-// Buscar imagem no Unsplash com fallback seguro
+// Parse do RSS
+function parseRSS(xmlText) {
+    try {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        
+        // Verificar se é XML válido
+        if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+            throw new Error("XML inválido");
+        }
 
+        const items = xmlDoc.querySelectorAll("item");
+        const newsList = [];
+
+        items.forEach(item => {
+            const title = item.querySelector("title")?.textContent?.trim() || "Título não disponível";
+            const link = item.querySelector("link")?.textContent?.trim() || "#";
+            const description = extractCleanDescription(item.querySelector("description")?.textContent || "");
+            const pubDate = item.querySelector("pubDate")?.textContent || "";
+            
+            newsList.push({
+                title,
+                link,
+                description,
+                pubDate,
+                source: "Google News"
+            });
+        });
+
+        return newsList.slice(0, 6); // Retorna mais para ter backup
+    } catch (error) {
+        console.error("Erro ao parsear RSS:", error);
+        return [];
+    }
+}
+
+// Limpar descrição HTML
+function extractCleanDescription(htmlDesc) {
+    if (!htmlDesc) return "Descrição não disponível";
+    
+    try {
+        // Remove tags HTML
+        const cleanText = htmlDesc
+            .replace(/<[^>]*>/g, '')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/&amp;/g, '&')
+            .trim();
+            
+        return cleanText.substring(0, 200) + (cleanText.length > 200 ? '...' : '');
+    } catch {
+        return htmlDesc.substring(0, 200) + '...';
+    }
+}
+
+// Buscar imagem com fallback melhor
 async function getUnsplashImage(query) {
-  const accessKey = "kRlxFUuqs5GjPR_aCo9I_SYQ8Xzx2V8T0nGSGWwPRD8"; 
+    const fallbackImages = {
+        'abelhas': 'bee',
+        'mel': 'honey',
+        'apicultura': 'beekeeping',
+        'meio ambiente': 'nature',
+        'polinização': 'pollination',
+        'flores': 'flowers'
+    };
 
-  const keywords = ["bee", "honey", "beekeeping", "flowers", "nature", "environment"];
-
-  try {
-    //tenta pelo título da notícia
-    let response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape&client_id=${accessKey}`
-    );
-    let data = await response.json();
-
-    if (data.results && data.results.length > 0) {
-      return data.results[0].urls.small;
+    let searchQuery = 'bee honey'; // default
+    
+    for (const [key, value] of Object.entries(fallbackImages)) {
+        if (query.toLowerCase().includes(key)) {
+            searchQuery = value;
+            break;
+        }
     }
 
-    //se não encontrou, sorteia uma palavra-chave da lista
-    const randomKeyword = keywords[Math.floor(Math.random() * keywords.length)];
-    response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${randomKeyword}&per_page=1&orientation=landscape&client_id=${accessKey}`
-    );
-    data = await response.json();
-
-    if (data.results && data.results.length > 0) {
-      return data.results[0].urls.small;
+    try {
+        const response = await fetch(
+            `https://api.unsplash.com/search/photos?query=${encodeURIComponent(searchQuery)}&per_page=3&orientation=landscape&client_id=${UNSPLASH_ACCESS_KEY}`
+        );
+        
+        if (!response.ok) throw new Error('Unsplash API error');
+        
+        const data = await response.json();
+        
+        if (data.results?.length > 0) {
+            return data.results[0].urls.small;
+        }
+    } catch (error) {
+        console.warn("Erro Unsplash:", error);
     }
 
-    //se não veio nada, cai no fallback
-    return "img/default.jpg";
-
-  } catch (error) {
-    console.error("Erro ao buscar imagem do Unsplash:", error);
-    return "img/default.jpg";
-  }
+    // Fallback para imagem local
+    return "img/default-news.jpg";
 }
 
-
-// Montar notícia no HTML com fallback de imagem
-async function renderNewsItem(news) {
-  let imageUrl = "img/default.jpg"; // fallback inicial
-
-  try {
-    // tenta buscar imagem relacionada no Unsplash
-    imageUrl = await getUnsplashImage(news.title);
-  } catch (e) {
-    console.warn("Usando imagem padrão para:", news.title);
-  }
-
-  return `
-    <div class="news-item">
-      <img src="${imageUrl}" 
-           alt="${news.title}" 
-           style="width:100%; border-radius:10px; margin-bottom:10px;" 
-           onerror="this.src='img/default.jpg'" />
-      <h3>${news.title}</h3>
-      <p>${news.description}</p>
-      <p><strong>Fonte:</strong> 
-        <a href="${news.sourceUrl}" target="_blank">${news.source}</a>
-      </p>
-      <a href="${news.link}" target="_blank">Ler mais</a>
-    </div>
-  `;
+// Renderizar notícia
+async function renderNewsItem(news, index) {
+    const imageUrl = await getUnsplashImage(news.title);
+    
+    return `
+        <div class="news-item">
+            <img src="${imageUrl}" alt="${news.title}" 
+                 onerror="this.src='img/default-news.jpg'" />
+            <h3>${news.title}</h3>
+            <p>${news.description}</p>
+            ${news.pubDate ? `<small>${new Date(news.pubDate).toLocaleDateString('pt-BR')}</small>` : ''}
+            <a href="${news.link}" target="_blank" rel="noopener noreferrer" class="btn">Ler mais</a>
+        </div>
+    `;
 }
 
-
-// Renderizar todas as notícias em paralelo
+// Renderizar notícias com fallback
 async function renderNews() {
-  const container = document.querySelector(".news-container");
-  if (!container) return;
+    const container = document.getElementById("rss-feed");
+    if (!container) return;
 
-  container.innerHTML = "<p>Carregando notícias...</p>";
+    container.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <p>Carregando notícias...</p>
+        </div>
+    `;
 
-  const news = await fetchNews();
+    try {
+        let news = await fetchNews();
+        
+        // Se não encontrar notícias, tenta feeds brasileiros
+        if (!news || news.length === 0) {
+            console.log("Tentando feeds brasileiros...");
+            news = await fetchBrazilianNews();
+        }
 
-  if (!news.length) {
-    container.innerHTML = "<p>Nenhuma notícia disponível.</p>";
-    return;
-  }
+        // Fallback: notícias estáticas
+        if (!news || news.length === 0) {
+            console.log("Usando notícias estáticas...");
+            news = getStaticNews();
+        }
 
-  const newsToRender = news.slice(0, 3); // garante máximo de 6 notícias
-  const newsHTML = await Promise.all(newsToRender.map(newsItem => renderNewsItem(newsItem)));
+        if (news && news.length > 0) {
+            const newsHTML = await Promise.all(
+                news.slice(0, 3).map(renderNewsItem)
+            );
+            container.innerHTML = newsHTML.join('');
+        } else {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p>Nenhuma notícia encontrada no momento.</p>
+                    <p>Visite nosso blog para as últimas atualizações.</p>
+                </div>
+            `;
+        }
 
-  container.innerHTML = newsHTML.join("");
+    } catch (error) {
+        console.error("Erro geral:", error);
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <p>Erro ao carregar notícias.</p>
+                <p>Por favor, tente atualizar a página.</p>
+            </div>
+        `;
+    }
 }
 
-// Executar depois que a página carrega
+// Notícias estáticas como fallback final
+function getStaticNews() {
+    return [
+        {
+            title: "Rede Apimel: Inovação na Apicultura Sustentável",
+            link: "#",
+            description: "Conheça nosso trabalho com abelhas nativas e produção sustentável de mel na região Nordeste.",
+            pubDate: new Date().toISOString(),
+            source: "Rede Apimel"
+        },
+        {
+            title: "Importância das Abelhas para o Ecossistema",
+            link: "#",
+            description: "As abelhas são responsáveis pela polinização de 70% das plantas cultivadas no Brasil.",
+            pubDate: new Date().toISOString(),
+            source: "Rede Apimel"
+        },
+        {
+            title: "Técnicas Modernas de Meliponicultura",
+            link: "#",
+            description: "Novas tecnologias para criação sustentável de abelhas sem ferrão na caatinga.",
+            pubDate: new Date().toISOString(),
+            source: "Rede Apimel"
+        }
+    ];
+}
+
+// ================= SLIDESHOW =================
+function initSlideshow() {
+    const slides = document.querySelectorAll('.banner-galeria .slides .slide');
+    if (slides.length === 0) return;
+    
+    let current = 0;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextSlide() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+    }
+
+    showSlide(current);
+    setInterval(nextSlide, 5000);
+}
+
+// ================= INICIALIZAÇÃO =================
 document.addEventListener("DOMContentLoaded", () => {
-  renderNews();
+    renderNews();
+    initSlideshow();
+});
+
+// ===== CONTROLE CONTEÚDO EXPANSÍVEL =====
+function toggleConteudo(conteudoId) {
+    const conteudo = document.getElementById(conteudoId);
+    const botao = event.target;
+    
+    // Fechar outros conteúdos abertos
+    document.querySelectorAll('.conteudo-expansivel').forEach(item => {
+        if (item.id !== conteudoId && item.classList.contains('aberto')) {
+            item.classList.remove('aberto');
+            // Resetar texto do botão de outros conteúdos
+            const outrosBotoes = document.querySelectorAll(`.btn-conheca[onclick*="${item.id}"]`);
+            outrosBotoes.forEach(btn => {
+                btn.textContent = 'Conheça mais';
+            });
+        }
+    });
+    
+    // Alternar conteúdo atual
+    const estaAberto = conteudo.classList.contains('aberto');
+    
+    if (estaAberto) {
+        conteudo.classList.remove('aberto');
+        botao.textContent = 'Conheça mais';
+    } else {
+        conteudo.classList.add('aberto');
+        botao.textContent = 'Fechar';
+        
+        // Scroll suave para o conteúdo
+        setTimeout(() => {
+            conteudo.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }, 300);
+    }
+}
+
+// Fechar ao clicar fora (opcional)
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.conteudo-expansivel') && !e.target.classList.contains('btn-conheca')) {
+        document.querySelectorAll('.conteudo-expansivel.aberto').forEach(conteudo => {
+            conteudo.classList.remove('aberto');
+            // Resetar todos os botões
+            document.querySelectorAll('.btn-conheca').forEach(btn => {
+                btn.textContent = 'Conheça mais';
+            });
+        });
+    }
 });
