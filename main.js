@@ -31,9 +31,11 @@ async function fetchNews() {
             if (!response.ok) continue;
             
             const text = await response.text();
-            console.log("Resposta recebida:", text.substring(0, 500)); // Debug
+            console.log("Resposta recebida:", text.substring(0, 500));
 
-            return parseRSS(text);
+            const news = parseRSS(text); 
+            return sortNewsByDate(news); 
+            
             
         } catch (error) {
             console.warn(`Proxy falhou: ${error.message}`);
@@ -53,6 +55,8 @@ async function fetchBrazilianNews() {
         'https://www.mma.gov.br/index.php/rss-noticias'
     ];
 
+    let allNews = [];
+
     for (let feed of rssFeeds) {
         try {
             const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feed)}`;
@@ -63,24 +67,50 @@ async function fetchBrazilianNews() {
                 const news = parseRSS(text);
                 
                 // Filtrar notícias relevantes
-                const filteredNews = news.filter(item => 
+                 const filteredNews = news.filter(item => 
                     KEYWORDS.some(keyword => 
                         item.title.toLowerCase().includes(keyword.toLowerCase()) ||
                         item.description.toLowerCase().includes(keyword.toLowerCase())
-                    )
+                    ) && isRecentNews(item.pubDate)
                 );
+
+                allNews = [...allNews, ...filteredNews];
                 
-                if (filteredNews.length > 0) {
-                    return filteredNews.slice(0, 3);
-                }
+                if (allNews.length >= 10) break;
             }
         } catch (error) {
             console.warn(`Feed ${feed} falhou:`, error);
         }
     }
     
-    return [];
+    // ORDENAR E RETORNAR APENAS AS MAIS RECENTES
+    return sortNewsByDate(allNews).slice(0, 6);
 }
+
+function sortNewsByDate(news) {
+    return news.sort((a, b) => {
+        const dateA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
+        const dateB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
+        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
+    });
+}
+
+// FILTRAR APENAS NOTÍCIAS RECENTES (ÚLTIMOS 60 DIAS)
+function isRecentNews(pubDate) {
+    if (!pubDate) return true; // Se não tem data, inclui por segurança
+    
+    try {
+        const newsDate = new Date(pubDate);
+        const now = new Date();
+        const diffTime = now - newsDate;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        
+        return diffDays <= 60; // Apenas notícias dos últimos 60 dias
+    } catch (error) {
+        return true; // Em caso de erro, inclui a notícia
+    }
+}
+
 
 // Parse do RSS
 function parseRSS(xmlText) {
@@ -100,18 +130,22 @@ function parseRSS(xmlText) {
             const title = item.querySelector("title")?.textContent?.trim() || "Título não disponível";
             const link = item.querySelector("link")?.textContent?.trim() || "#";
             const description = extractCleanDescription(item.querySelector("description")?.textContent || "");
-            const pubDate = item.querySelector("pubDate")?.textContent || "";
+            const pubDate = item.querySelector("pubDate")?.textContent || 
+                           item.querySelector("pubdate")?.textContent ||
+                           item.querySelector("date")?.textContent ||
+                           "";
             
             newsList.push({
                 title,
                 link,
                 description,
                 pubDate,
-                source: "Google News"
+                source: "Google News", 
+                timestamp: pubDate ? new Date(pubDate).getTime() : Date.now() // Para ordenação
             });
         });
 
-        return newsList.slice(0, 6); // Retorna mais para ter backup
+        return newsList;
     } catch (error) {
         console.error("Erro ao parsear RSS:", error);
         return [];
@@ -210,6 +244,14 @@ async function renderNews() {
         if (!news || news.length === 0) {
             console.log("Tentando feeds brasileiros...");
             news = await fetchBrazilianNews();
+        }
+
+         if (news && news.length > 0) {
+        const recentNews = news.filter(item => isRecentNews(item.pubDate));
+            
+            if (recentNews.length > 0) {
+                news = recentNews;
+            }
         }
 
         // Fallback: notícias estáticas
