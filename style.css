@@ -66,7 +66,7 @@ nav ul a {
   background: none;
   border: 1px none;
   padding: 5px 10px;
-  font-size: 2rem; 
+  font-size: 1.5rem; 
   text-decoration: none;
   cursor: pointer;
   color: white;
@@ -112,33 +112,6 @@ main {
    padding: 1.5rem;
 }
 
-/* Estilos das Seções Individuais */
-section {
-   margin-bottom: 2rem;
-   padding: 1.5rem;               /* Fundo branco para os blocos de conteúdo */
-   background-color: white;     /* Bordas arredondadas*/
-   border-radius: 10%;            /* Sombra sutil */
-   box-shadow: 0 1px 3px black;
-}
-
-section h2 {
-  color: #d88c36;
-  margin-top: 0;
-}
-
-.section-images {
-  position: relative;
-  display: inline-block;
-}
-
-.descricao {
-  margin-top: 5px;          /* espaço pequeno abaixo da imagem */
-  font-size: 14px;          /* descrição menor */
-  display: flex;
-  flex-direction: column;   /* texto em cima, botão embaixo */
-  align-items: flex-start;  /* botão alinhado à esquerda */
-}
-
 
 /* Estilos da logo */
 #logo img {
@@ -177,7 +150,6 @@ section h2 {
 }
 
 
-
 /* Caixa geral das seções */
 section {
   background: #fff; 
@@ -187,8 +159,18 @@ section {
   margin: 40px auto;
   width: 80%;
   max-width: 80%;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif; 
+  font-size: 1.5rem;
+}
+
+section h2 {
+  color: #d88c36;
+  margin-top: 0;
+}
+
+.section-images {
+  position: relative;
+  display: inline-block;
 }
 
 /* Flexbox: imagens e texto lado a lado */
@@ -246,30 +228,13 @@ section {
   flex: 1; /* ocupa a outra metade */
 }
 
-.section-text h2 { 
-  font-size: 12rem; /* tamanho grande para destaque */
-  margin-bottom: 15px; /* espaço abaixo do título */
-  color: #c75c1e; /* cor laranja para destaque */
-}
-
 .section-text p {
-  font-size: 2rem;
+  font-size: 1.2rem;
   color: #333;
   line-height: 1.6; /* melhora a legibilidade */
 }
 
-/* Responsividade: empilha imagem e texto em telas menores */
-@media (max-width: 768px) {
-  .section-content {
-    flex-direction: column;
-    gap: 20px;
-  }
 
-  .section-images,
-  .section-text {
-    width: 100%;
-  }
-}
 
 /* Efeito de hover nas seções */
 section {
