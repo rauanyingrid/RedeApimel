@@ -514,3 +514,369 @@ section:hover {
         font-size: 1.5rem;
     }
 }
+
+
+/* ===== RESPONSIVIDADE PARA SMARTPHONES ===== */
+@media (max-width: 768px) {
+    /* CORREÇÃO DO BODY */
+    body {
+        font-family: sans-serif; /* Corrigir: era font-size */
+        font-size: 16px; /* Prevenir zoom em iOS */
+    }
+    
+    /* HEADER E NAVEGAÇÃO */
+    .header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+        text-align: center;
+    }
+    
+    #logo {
+        position: static;
+        margin-bottom: 15px;
+    }
+    
+    #logo img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 70px;
+        height: auto;
+    }
+    
+    nav ul {
+        margin-top: 0;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul a {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        min-height: 44px; /* Tamanho mínimo para toque */
+        display: flex;
+        align-items: center;
+    }
+    
+    /* PARCEIROS */
+    .parceiros-container {
+        gap: 2rem;
+        padding: 0 15px;
+    }
+    
+    .parceiros-container img {
+        height: 45px;
+    }
+    
+    /* BANNER */
+    .banner-galeria {
+        height: 40vh;
+        min-height: 250px;
+    }
+    
+    /* SEÇÕES PRINCIPAIS */
+    section {
+        padding: 30px 20px;
+        margin: 25px auto;
+        width: 90%;
+        max-width: 90%;
+        font-size: 1.2rem;
+    }
+    
+    section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    
+    .section-content {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .section-images,
+    .section-text {
+        width: 100%;
+    }
+    
+    .section-images img {
+        width: 100%;
+    }
+    
+    .section-text p {
+        font-size: 1.1rem;
+        text-align: justify;
+    }
+    
+    /* BOTÕES */
+    .btn-conheca {
+        font-size: 1rem;
+        padding: 12px 24px;
+        width: 100%;
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* CONTEÚDO EXPANSÍVEL */
+    .expansivel-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 25px 20px;
+    }
+    
+    .expansivel-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .expansivel-texto {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    .expansivel-lista li {
+        padding: 10px 0;
+        padding-left: 30px;
+        font-size: 1rem;
+    }
+    
+    /* NOTÍCIAS */
+    .news {
+        padding: 40px 5%;
+    }
+    
+    .news h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    
+    .news-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .news-item {
+        min-width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .news-item h3 {
+        font-size: 1.1rem;
+    }
+    
+    .news-item p {
+        font-size: 0.9rem;
+    }
+    
+    /* RODAPÉ */
+    #contatos {
+        padding: 40px 20px;
+    }
+    
+    #contatos h2 {
+        font-size: 1.8rem;
+    }
+    
+    .footer-col p {
+        font-size: 1.1rem;
+    }
+    
+    .footer-links a {
+        font-size: 1.1rem;
+        display: block;
+        margin: 10px 0;
+    }
+    
+    .footer-map {
+        max-width: 100%;
+        margin: 25px 0;
+    }
+}
+
+/* ===== RESPONSIVIDADE PARA TELAS MUITO PEQUENAS (iPhone SE, etc) ===== */
+@media (max-width: 480px) {
+    /* HEADER */
+    .header {
+        padding: 10px 15px;
+    }
+    
+    nav ul {
+        gap: 5px;
+    }
+    
+    nav ul a {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    
+    /* PARCEIROS */
+    .parceiros-container {
+        gap: 1.5rem;
+    }
+    
+    .parceiros-container img {
+        height: 40px;
+    }
+    
+    /* BANNER */
+    .banner-galeria {
+        height: 35vh;
+        min-height: 200px;
+    }
+    
+    /* SEÇÕES */
+    section {
+        padding: 25px 15px;
+        margin: 20px auto;
+        width: 95%;
+        max-width: 95%;
+        font-size: 1.1rem;
+    }
+    
+    section h2 {
+        font-size: 1.6rem;
+    }
+    
+    .section-text p {
+        font-size: 1rem;
+    }
+    
+    /* CONTEÚDO EXPANSÍVEL */
+    .expansivel-content {
+        padding: 20px 15px;
+    }
+    
+    .expansivel-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .expansivel-texto {
+        font-size: 1rem;
+    }
+    
+    .expansivel-lista li {
+        font-size: 0.95rem;
+        padding-left: 25px;
+    }
+    
+    /* NOTÍCIAS */
+    .news {
+        padding: 30px 4%;
+    }
+    
+    .news h2 {
+        font-size: 1.6rem;
+    }
+    
+    .news-item {
+        padding: 15px;
+    }
+    
+    /* RODAPÉ */
+    #contatos {
+        padding: 30px 15px;
+    }
+    
+    .footer-col p,
+    .footer-links a {
+        font-size: 1rem;
+    }
+}
+
+/* ===== MELHORIAS GERAIS PARA MOBILE ===== */
+@media (max-width: 768px) {
+    /* PREVENIR PROBLEMAS DE SCROLL HORIZONTAL */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* MELHORAR LEGIBILIDADE DO TEXTO */
+    body {
+        line-height: 1.5;
+    }
+    
+    /* OTIMIZAR TOCÁVEIS */
+    .btn-conheca, 
+    nav ul a, 
+    .news-item .btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* MELHORAR ESPAÇAMENTOS */
+    .section-content,
+    .expansivel-content {
+        gap: 20px;
+    }
+    
+    /* AJUSTAR IMAGENS */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* REMOVER HOVER EFFECTS EM TOUCH */
+    @media (hover: none) {
+        .btn-conheca:hover,
+        nav ul a:hover,
+        .parceiros-container img:hover,
+        .news-item:hover {
+            transform: none;
+            background-color: inherit;
+        }
+    }
+    
+    /* GRIDS INTERNOS RESPONSIVOS */
+    .expansivel-content div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+}
+
+/* ===== ORIENTAÇÃO LANDSCAPE ===== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .banner-galeria {
+        height: 60vh;
+    }
+    
+    .header {
+        padding: 10px 20px;
+    }
+    
+    nav ul {
+        gap: 4px;
+    }
+    
+    nav ul a {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+    
+    /* Reduzir altura das seções em landscape */
+    section {
+        padding: 20px 15px;
+    }
+}
+
+/* ===== CORREÇÕES ESPECÍFICAS ===== */
+/* Prevenir highlight azul no tap em mobile */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Melhorar renderização de fontes em mobile */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Otimizar inputs para mobile */
+input, textarea, select {
+    font-size: 16px; /* Prevenir zoom em iOS */
+}
