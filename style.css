@@ -526,9 +526,9 @@ section:hover {
     
     /* HEADER E NAVEGAÇÃO */
     .header {
-        flex-direction: column;
-        height: auto;
-        padding: 15px 20px;
+        flex-direction: row; /
+        height: auto; 
+        padding: 15px 20px; 
         text-align: center;
     }
     
@@ -561,7 +561,7 @@ section:hover {
     
     /* PARCEIROS */
     .parceiros-container {
-        gap: 2rem;
+        gap: 1rem; /* Reduzir espaço entre logos */
         padding: 0 15px;
     }
     
@@ -655,20 +655,20 @@ section:hover {
     .news-container {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 15px; /
     }
     
     .news-item {
-        min-width: 100%;
-        margin-bottom: 0;
+        min-width: 90%; /* Ocupa quase toda a largura */
+        margin-bottom: 0; 
     }
     
     .news-item h3 {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     .news-item p {
-        font-size: 0.9rem;
+        font-size: 0.6rem;
     }
     
     /* RODAPÉ */
