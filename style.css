@@ -503,18 +503,6 @@ section:hover {
     z-index: 2;
 }
 
-@media (max-width: 768px) {
-    .expansivel-content {
-        grid-template-columns: 1fr;
-        gap: 25px;
-        padding: 25px 20px;
-    }
-    
-    .expansivel-header h3 {
-        font-size: 1.5rem;
-    }
-}
-
 
 /* ===== RESPONSIVIDADE PARA SMARTPHONES ===== */
 @media (max-width: 768px) {
@@ -526,7 +514,7 @@ section:hover {
     
     /* HEADER E NAVEGAÇÃO */
     .header {
-        flex-direction: row; /
+        flex-direction:row; 
         height: auto; 
         padding: 15px 20px; 
         text-align: center;
@@ -563,7 +551,7 @@ section:hover {
     .parceiros-container {
         gap: 0.5rem; /* Reduzir espaço entre logos */
         padding: 0 15px; 
-        flex-direction: column;
+        flex-direction: row;
     }
     
     .parceiros-container img {
