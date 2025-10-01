@@ -91,7 +91,7 @@ nav ul a {
   display: flex;
   justify-content: center;         /* centraliza horizontalmente */
   align-items: center;
-  gap: 8rem;                       /* espaço entre logos */
+  gap: 4rem;                       /* espaço entre logos */
   flex-wrap: wrap;                 /* quebra de linha em telas pequenas */
 }
 
@@ -561,8 +561,9 @@ section:hover {
     
     /* PARCEIROS */
     .parceiros-container {
-        gap: 1rem; /* Reduzir espaço entre logos */
-        padding: 0 15px;
+        gap: 0.5rem; /* Reduzir espaço entre logos */
+        padding: 0 15px; 
+        flex-direction: row;
     }
     
     .parceiros-container img {
