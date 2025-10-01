@@ -563,7 +563,7 @@ section:hover {
     .parceiros-container {
         gap: 0.5rem; /* Reduzir espaço entre logos */
         padding: 0 15px; 
-        flex-direction: row;
+        flex-direction: column;
     }
     
     .parceiros-container img {
