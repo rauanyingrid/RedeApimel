@@ -96,7 +96,7 @@ nav ul a {
 }
 
 .parceiros-container img {
-  height: 60px;                    /* altura padrão das logos */
+  height: 30px;                    /* altura padrão das logos */
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -104,8 +104,6 @@ nav ul a {
 .parceiros-container img:hover {
   transform: scale(1.1);           /* zoom ao passar o mouse */
 }
-
-
 
 /* Estilos da Seção Principal */
 main {
@@ -122,8 +120,8 @@ main {
 
 /* Banner Galeria */
 .banner-galeria {
-  width: 100%;
-  height: 50vh; /* ocupa quase toda a tela */
+  width: 70%;
+  height: 40vh; /* ocupa quase toda a tela */
   position: relative;
   overflow: hidden;
 }
@@ -135,8 +133,8 @@ main {
 }
 
 .banner-galeria .slides img {
-  width: 100%; /* cobre toda a largura */
-  height: 100%; /* cobre toda a altura */
+  width: 70%; /* cobre toda a largura */
+  height: 70%; /* cobre toda a altura */
   object-fit: cover; /* cobre a tela sem distorcer */
   position: absolute; /* empilha as imagens */
   top: 0; /* fixa no topo */
@@ -157,8 +155,7 @@ section {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
   padding: 60px 5%; 
   margin: 40px auto;
-  width: 80%;
-  max-width: 80%;
+  width: 70%; 
   font-family: 'Roboto', sans-serif; 
   font-size: 1.2rem;
 }
