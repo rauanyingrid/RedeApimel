@@ -66,7 +66,7 @@ nav ul a {
   background: none;
   border: 1px none;
   padding: 5px 10px;
-  font-size: 1.5rem; 
+  font-size: 1.2rem; 
   text-decoration: none;
   cursor: pointer;
   color: white;
@@ -160,7 +160,7 @@ section {
   width: 80%;
   max-width: 80%;
   font-family: 'Roboto', sans-serif; 
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 section h2 {
@@ -540,7 +540,7 @@ section:hover {
     }
     
     nav ul a {
-        font-size: 0.9rem;
+        font-size: 0.9rem; /* Reduzir tamanho da fonte */
         padding: 8px 12px;
         min-height: 44px; /* Tamanho mínimo para toque */
         display: flex;
