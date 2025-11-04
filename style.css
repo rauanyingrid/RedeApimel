@@ -133,8 +133,8 @@ main {
 }
 
 .banner-galeria .slides img {
-  width: 70%; /* cobre toda a largura */
-  height: 70%; /* cobre toda a altura */
+  width: 100%; /* cobre toda a largura */
+  height: 100%; /* cobre toda a altura */
   object-fit: cover; /* cobre a tela sem distorcer */
   position: absolute; /* empilha as imagens */
   top: 0; /* fixa no topo */
