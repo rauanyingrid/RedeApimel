@@ -276,75 +276,162 @@ section:hover {
 
 
 
-/* Área geral das notícias */
+/* ===== NOTÍCIAS ===== */
+/* ===== NOTÍCIAS - PADRONIZADO COM AS SEÇÕES ===== */
 .news {
-  padding: 60px 5%; /* Espaçamento interno: 60px em cima e embaixo, 10% nas laterais */
-  background: #f9f9f9; /* Fundo cinza claro para diferenciar do restante da página */
-  text-align: center; /* Centraliza o título da seção e demais elementos de texto dentro da área */
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 60px 5%;
+    margin: 40px auto;
+    width: 70%;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
 
-/* Título da seção de notícias */
 .news h2 {
-  font-size: 2rem; /* Tamanho da fonte maior para destacar o título */
-  margin-bottom: 40px; /* Espaço abaixo do título para separar do conteúdo */
-  color: #333; /* Cor do texto: cinza escuro */
+    color: #d88c36;
+    margin-top: 0;
+    font-size: 2rem;
+    margin-bottom: 40px;
 }
 
-/* Container que agrupa todos os itens de notícia */
 .news-container {
-  display: flex; /* Usa flexbox para organizar os itens lado a lado */
-  justify-content: space-between; /* Espaça igualmente os itens horizontalmente */
-  flex-wrap: wrap; /* Permite quebrar para a linha de baixo se não couberem em uma linha */
-  gap: 20px; /* Espaçamento entre os itens da flexbox */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px; /* Espaçamento entre os itens */
+    max-width: 1600px; 
+    margin: 0 auto; 
+    padding: 0 20px; /* Espaçamento lateral */
+    align-items: stretch; /* Garante que todos os itens tenham a mesma altura */
 }
 
-/* Cada item de notícia individual */
 .news-item {
-  background: #fff; /* Fundo branco para destacar cada notícia */
-  border-radius: 10px; /* Bordas arredondadas para um visual mais suave */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra leve para criar profundidade */
-  flex: 1; /* Faz o item ocupar espaço proporcional disponível */
-  min-width: 280px; /* Largura mínima para não encolher demais em telas pequenas */
-  max-width: 100%; /* Limita a largura máxima, criando três colunas lado a lado */
-  padding: 20px; /* Espaçamento interno para o conteúdo não encostar nas bordas */
-  text-align: left; /* Alinha o texto à esquerda dentro do item */
-  transition: transform 0.3s; /* Transição suave para transformações (hover) */
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    padding: 90px; 
+    text-align: left; 
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    width: 320px;
+    border: 1px solid #e0e0e0;
 }
 
-/* Efeito de elevação ao passar o mouse sobre a notícia */
 .news-item:hover {
-  transform: translateY(-5px); /* Move o item 5px para cima */
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Imagem dentro de cada item de notícia */
 .news-item img {
-  width: 100%; /* A imagem ocupa toda a largura do container */
-  border-radius: 8px; /* Bordas arredondadas da imagem */
-  margin-bottom: 15px; /* Espaço abaixo da imagem para separar do título */
+    width: 350px; 
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-/* Título de cada notícia */
 .news-item h3 {
-  font-size: 1.2rem; /* Tamanho da fonte do título da notícia */
-  margin-bottom: 10px; /* Espaço abaixo do título para separar do texto */
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #c75c1e;
+    line-height: 1.4;
+    flex-grow: 0;
 }
 
-/* Parágrafo/resumo de cada notícia */
 .news-item p {
-  font-size: 0.95rem; /* Tamanho da fonte levemente menor que o título */
-  margin-bottom: 15px; /* Espaço abaixo do parágrafo */
-  color: #555; /* Cor cinza médio para contraste suave com o fundo branco */
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: #555;
+    line-height: 1.5;
+    flex-grow: 1;
 }
 
-/* Botão "Leia Mais" em cada notícia */
+.news-item small {
+    display: block;
+    margin-bottom: 20px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
 .news-item .btn {
-  display: inline-block; /* Permite definir padding e borda */
-  background: #ffd700; /* Fundo amarelo para se destacar */
-  padding: 8px 16px; /* Espaçamento interno do botão */
-  border-radius: 20px; /* Bordas arredondadas para botão mais amigável */
-  text-decoration: none; /* Remove sublinhado do link */
-  color: #000; /* Cor do texto do botão: preto */
-  font-weight: bold; /* Texto em negrito para chamar atenção */
+    display: inline-block;
+    background: #c75c1e;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.news-item .btn:hover {
+    background: #a64a16;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVO - Tablet */
+@media (max-width: 1024px) {
+    .news {
+        width: 85%;
+        padding: 50px 4%;
+    }
+    
+    .news-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .news {
+        width: 90%;
+        padding: 40px 3%;
+        margin: 30px auto;
+    }
+    
+    .news-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 15px;
+    }
+    
+    .news-item {
+        padding: 20px;
+    }
+    
+    .news-item img {
+        height: 160px;
+    }
+    
+    .news h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+}
+
+/* CORES CONSISTENTES COM AS SEÇÕES */
+.news h2 {
+    color: #d88c36; /* Mesma cor dos h2 das seções */
+}
+
+.news-item h3 {
+    color: #c75c1e; /* Mesma cor dos botões */
+}
+
+.news-item .btn {
+    background: #c75c1e; /* Botão igual aos das seções */
+}
+
+.news-item .btn:hover {
+    background: #a64a16; /* Hover igual */
 }
 
 /* Rodapé geral */

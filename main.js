@@ -8,109 +8,136 @@ const KEYWORDS = [
     "meio ambiente", "abelhas solitárias", "polinizadores", "inovação na apicultura", "tecnologia apícola", "sanidade apícola",  "apicultura sustentável", "Apis mellifera"
 ];
 
-// Alternativa 1: Usando CORS Proxy alternativo
-async function fetchNews() {
-    const query = KEYWORDS.join(" OR ");
+// Função auxiliar para resetar conteúdos
+function resetConteudosAbertos(conteudoId) {
+    document.querySelectorAll('.conteudo-expansivel').forEach(item => {
+        if (item.id !== conteudoId && item.classList.contains('aberto')) {
+            item.classList.remove('aberto');
+        }
+    });
     
-    // Tentar diferentes proxies
-    const proxies = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`,
-        `https://corsproxy.io/?${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`,
-        `https://thingproxy.freeboard.io/fetch/https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=pt-BR&gl=BR&ceid=BR:pt-419`
-    ];
+    document.querySelectorAll('.btn-conheca').forEach(btn => {
+        btn.textContent = 'Conheça mais';
+    });
+}
 
-    for (let proxyUrl of proxies) {
+// Função unificada para fetch
+async function fetchWithRetry(urls, options = {}) {
+    for (let url of urls) {
         try {
-            console.log(`Tentando proxy: ${proxyUrl}`);
-            const response = await fetch(proxyUrl, {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                }
-            });
-            
-            if (!response.ok) continue;
-            
-            const text = await response.text();
-            console.log("Resposta recebida:", text.substring(0, 500));
-
-            const news = parseRSS(text); 
-            return sortNewsByDate(news); 
-            
-            
+            console.log(`🔄 Tentando: ${url.substring(0, 100)}...`);
+            const response = await fetch(url, options);
+            if (response.ok) {
+                const text = await response.text();
+                console.log("✅ Fetch bem-sucedido");
+                return text;
+            }
         } catch (error) {
-            console.warn(`Proxy falhou: ${error.message}`);
+            console.warn(`❌ Fetch falhou: ${error.message}`);
             continue;
         }
+    }
+    return null;
+}
+
+// Buscar notícias do Google News
+async function fetchNews() {
+    const query = KEYWORDS.join(" OR ");
+    console.log(`🔍 Buscando notícias: ${query}`);
+    
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`,
+        `https://corsproxy.io/?${encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=pt-BR&gl=BR&ceid=BR:pt-419`)}`
+    ];
+
+    const text = await fetchWithRetry(proxies, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+    });
+    
+    if (text) {
+        console.log("📰 RSS obtido com sucesso");
+        const news = parseRSS(text);
+        const sortedNews = sortNewsByDate(news);
+        console.log(`📊 ${sortedNews.length} notícias encontradas no Google News`);
+        return sortedNews;
     }
     
     throw new Error("Todos os proxies falharam");
 }
 
-// Alternativa 2: RSS Brasileiro específico para meio ambiente
+// RSS Brasileiro específico
 async function fetchBrazilianNews() {
     const rssFeeds = [
         'https://g1.globo.com/rss/g1/ciencia-e-meio-ambiente/',
         'https://www.embrapa.br/rss/noticias/meio-ambiente',
-        'https://agenciabrasil.ebc.com.br/rss/geral/feed.xml',
-        'https://www.mma.gov.br/index.php/rss-noticias'
+        'https://agenciabrasil.ebc.com.br/rss/geral/feed.xml'
     ];
 
     let allNews = [];
+    console.log("🇧🇷 Buscando em feeds brasileiros...");
 
     for (let feed of rssFeeds) {
         try {
             const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feed)}`;
-            const response = await fetch(proxyUrl);
+            const text = await fetchWithRetry([proxyUrl]);
             
-            if (response.ok) {
-                const text = await response.text();
+            if (text) {
                 const news = parseRSS(text);
+                console.log(`📰 ${news.length} notícias de ${feed}`);
                 
                 // Filtrar notícias relevantes
-                 const filteredNews = news.filter(item => 
+                const filteredNews = news.filter(item => 
                     KEYWORDS.some(keyword => 
                         item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-                        item.description.toLowerCase().includes(keyword.toLowerCase())
+                        (item.description && item.description.toLowerCase().includes(keyword.toLowerCase()))
                     ) && isRecentNews(item.pubDate)
                 );
 
+                console.log(`✅ ${filteredNews.length} notícias filtradas de ${feed}`);
                 allNews = [...allNews, ...filteredNews];
                 
-                if (allNews.length >= 10) break;
+                if (allNews.length >= 6) break;
             }
         } catch (error) {
-            console.warn(`Feed ${feed} falhou:`, error);
+            console.warn(`❌ Feed ${feed} falhou:`, error);
         }
     }
     
-    // ORDENAR E RETORNAR APENAS AS MAIS RECENTES
-    return sortNewsByDate(allNews).slice(0, 6);
+    const sortedNews = sortNewsByDate(allNews);
+    console.log(`📊 Total de ${sortedNews.length} notícias brasileiras relevantes`);
+    return sortedNews;
 }
 
+// Ordenar por data (mais recente primeiro)
 function sortNewsByDate(news) {
+    if (!news || news.length === 0) return [];
+    
     return news.sort((a, b) => {
         const dateA = a.pubDate ? new Date(a.pubDate).getTime() : 0;
         const dateB = b.pubDate ? new Date(b.pubDate).getTime() : 0;
-        return dateB - dateA; // Ordem decrescente (mais recente primeiro)
+        return dateB - dateA; // Ordem decrescente
     });
 }
 
-// FILTRAR APENAS NOTÍCIAS RECENTES (ÚLTIMOS 60 DIAS)
+// Filtrar notícias recentes (últimos 60 dias)
 function isRecentNews(pubDate) {
-    if (!pubDate) return true; // Se não tem data, inclui por segurança
+    if (!pubDate) return false; // ❌ CORREÇÃO: Se não tem data, exclui
     
     try {
         const newsDate = new Date(pubDate);
+        if (isNaN(newsDate.getTime())) return false; // ❌ CORREÇÃO: Data inválida
+        
         const now = new Date();
         const diffTime = now - newsDate;
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
         
-        return diffDays <= 60; // Apenas notícias dos últimos 60 dias
+        return diffDays <= 60;
     } catch (error) {
-        return true; // Em caso de erro, inclui a notícia
+        return false; // ❌ CORREÇÃO: Em caso de erro, exclui
     }
 }
-
 
 // Parse do RSS
 function parseRSS(xmlText) {
@@ -118,7 +145,6 @@ function parseRSS(xmlText) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlText, "text/xml");
         
-        // Verificar se é XML válido
         if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
             throw new Error("XML inválido");
         }
@@ -135,19 +161,23 @@ function parseRSS(xmlText) {
                            item.querySelector("date")?.textContent ||
                            "";
             
-            newsList.push({
-                title,
-                link,
-                description,
-                pubDate,
-                source: "Google News", 
-                timestamp: pubDate ? new Date(pubDate).getTime() : Date.now() // Para ordenação
-            });
+            // ❌ CORREÇÃO: Só adiciona se tiver título válido
+            if (title && title !== "Título não disponível") {
+                newsList.push({
+                    title,
+                    link,
+                    description,
+                    pubDate,
+                    source: "Google News",
+                    timestamp: pubDate ? new Date(pubDate).getTime() : Date.now()
+                });
+            }
         });
 
+        console.log(`📄 ${newsList.length} itens parseados do RSS`);
         return newsList;
     } catch (error) {
-        console.error("Erro ao parsear RSS:", error);
+        console.error("❌ Erro ao parsear RSS:", error);
         return [];
     }
 }
@@ -157,38 +187,30 @@ function extractCleanDescription(htmlDesc) {
     if (!htmlDesc) return "Descrição não disponível";
     
     try {
-        // Remove tags HTML
         const cleanText = htmlDesc
             .replace(/<[^>]*>/g, '')
             .replace(/&nbsp;/g, ' ')
             .replace(/&amp;/g, '&')
             .trim();
             
-        return cleanText.substring(0, 200) + (cleanText.length > 200 ? '...' : '');
+        return cleanText.substring(0, 150) + (cleanText.length > 150 ? '...' : '');
     } catch {
-        return htmlDesc.substring(0, 200) + '...';
+        return htmlDesc.substring(0, 150) + '...';
     }
 }
 
-// Buscar imagem com fallback melhor
-async function getUnsplashImage(query) {
-    const fallbackImages = {
-        'abelhas': 'bee',
-        'mel': 'honey',
-        'apicultura': 'beekeeping',
-        'meio ambiente': 'nature',
-        'polinização': 'pollination',
-        'flores': 'flowers'
-    };
-
-    let searchQuery = 'bee honey'; // default
+// Buscar imagem
+async function getUnsplashImage(query, index = 0) {
+    const searchQueries = [
+        'bee honey', 
+        'beekeeping', 
+        'pollination flowers',
+        'honeycomb',
+        'apiary',
+        'beekeeper'
+    ];
     
-    for (const [key, value] of Object.entries(fallbackImages)) {
-        if (query.toLowerCase().includes(key)) {
-            searchQuery = value;
-            break;
-        }
-    }
+    const searchQuery = searchQueries[index % searchQueries.length];
 
     try {
         const response = await fetch(
@@ -203,16 +225,20 @@ async function getUnsplashImage(query) {
             return data.results[0].urls.small;
         }
     } catch (error) {
-        console.warn("Erro Unsplash:", error);
+        console.warn("❌ Erro Unsplash:", error);
     }
 
-    // Fallback para imagem local
-    return "img/default-news.jpg";
+    // Fallback para imagens locais diferentes
+    const localImages = [
+        "img/default-news.jpg",
+        "img/abelhas-detalhe.jpg", 
+        "img/apicultores.webp"
+    ];
+    return localImages[index % localImages.length];
 }
 
-// Renderizar notícia
 async function renderNewsItem(news, index) {
-    const imageUrl = await getUnsplashImage(news.title);
+    const imageUrl = await getUnsplashImage(news.title, index);
     
     return `
         <div class="news-item">
@@ -226,66 +252,105 @@ async function renderNewsItem(news, index) {
     `;
 }
 
-// Renderizar notícias com fallback
-async function renderNews() {
-    const container = document.getElementById("rss-feed");
-    if (!container) return;
-
-    container.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-            <p>Carregando notícias...</p>
-        </div>
-    `;
-
+// Formatar data
+function formatDate(dateString) {
     try {
-        let news = await fetchNews();
-        
-        // Se não encontrar notícias, tenta feeds brasileiros
-        if (!news || news.length === 0) {
-            console.log("Tentando feeds brasileiros...");
-            news = await fetchBrazilianNews();
-        }
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR');
+    } catch {
+        return "Data não disponível";
+    }
+}
 
-         if (news && news.length > 0) {
-        const recentNews = news.filter(item => isRecentNews(item.pubDate));
-            
-            if (recentNews.length > 0) {
-                news = recentNews;
-            }
-        }
-
-        // Fallback: notícias estáticas
-        if (!news || news.length === 0) {
-            console.log("Usando notícias estáticas...");
-            news = getStaticNews();
-        }
-
-        if (news && news.length > 0) {
-            const newsHTML = await Promise.all(
-                news.slice(0, 3).map(renderNewsItem)
-            );
-            container.innerHTML = newsHTML.join('');
-        } else {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 40px;">
-                    <p>Nenhuma notícia encontrada no momento.</p>
-                    <p>Visite nosso blog para as últimas atualizações.</p>
-                </div>
-            `;
-        }
-
-    } catch (error) {
-        console.error("Erro geral:", error);
-        container.innerHTML = `
+// Função para mensagens
+function getNewsMessage(isError = false) {
+    if (isError) {
+        return `
             <div style="text-align: center; padding: 40px;">
                 <p>Erro ao carregar notícias.</p>
                 <p>Por favor, tente atualizar a página.</p>
             </div>
         `;
+    } else {
+        return `
+            <div style="text-align: center; padding: 40px;">
+                <p>Nenhuma notícia encontrada no momento.</p>
+            </div>
+        `;
     }
 }
 
-// Notícias estáticas como fallback final
+// GARANTE 3 NOTÍCIAS
+async function renderNews() {
+    const container = document.getElementById("rss-feed");
+    if (!container) {
+        console.log;
+        return;
+    }
+
+    console.log;
+    container.innerHTML = `<div style="text-align: center; padding: 20px;"><p>Carregando notícias...</p></div>`;
+
+    try {
+        let news = [];
+        
+        // Tenta Google News primeiro
+        try {
+            news = await fetchNews();
+            console.log(`✅ Google News: ${news.length} notícias`);
+        } catch (error) {
+            console.log("❌ Google News falhou");
+            news = await fetchBrazilianNews();
+        }
+
+        // Se ainda não tem notícias, tenta feeds brasileiros
+        if (!news || news.length === 0) {
+            console.log("🔄 Tentando feeds brasileiros como fallback...");
+            news = await fetchBrazilianNews();
+        }
+
+        // Aplica filtro de data
+        if (news && news.length > 0) {
+            const recentNews = news.filter(item => isRecentNews(item.pubDate));
+            console.log(`📅 ${recentNews.length} notícias recentes após filtro`);
+            news = recentNews.length > 0 ? recentNews : news.slice(0, 3);
+        }
+
+        // Garante que sempre tem 3 notícias
+        let newsToShow = [];
+        if (news && news.length > 0) {
+            // Pega as 3 mais recentes
+            newsToShow = news.slice(0, 3);
+            console.log(`🎯 Mostrando ${newsToShow.length} notícias:`);
+            newsToShow.forEach((item, i) => {
+                console.log(`   ${i + 1}. ${item.title} (${item.pubDate ? formatDate(item.pubDate) : 'sem data'})`);
+            });
+        } else {
+            console.log("📝 Usando notícias estáticas...");
+            newsToShow = getStaticNews();
+        }
+
+        // Renderiza as notícias
+        if (newsToShow.length > 0) {
+            const newsHTML = await Promise.all(newsToShow.map(renderNewsItem));
+            container.innerHTML = newsHTML.join('');
+            console.log(`✅ ${newsToShow.length} notícias renderizadas com sucesso!`);
+        } else {
+            container.innerHTML = getNewsMessage(false);
+            console.log("❌ Nenhuma notícia para mostrar");
+        }
+
+    } catch (error) {
+        console.error("💥 Erro geral:", error);
+        // Fallback para notícias estáticas
+        const staticNews = getStaticNews();
+        const newsHTML = await Promise.all(staticNews.map(renderNewsItem));
+        container.innerHTML = newsHTML.join('');
+        console.log("🔄 Usando notícias estáticas devido ao erro");
+    }
+}
+
+// Notícias estáticas
 function getStaticNews() {
     return [
         {
@@ -296,7 +361,7 @@ function getStaticNews() {
             source: "Rede Apimel"
         },
         {
-            title: "Importância das Abelhas para o Ecossistema",
+            title: "Importância das Abelhas para o Ecossistema", 
             link: "#",
             description: "As abelhas são responsáveis pela polinização de 70% das plantas cultivadas no Brasil.",
             pubDate: new Date().toISOString(),
@@ -336,6 +401,7 @@ function initSlideshow() {
 
 // ================= INICIALIZAÇÃO =================
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("🏁 DOM carregado, iniciando...");
     renderNews();
     initSlideshow();
 });
@@ -345,19 +411,8 @@ function toggleConteudo(conteudoId) {
     const conteudo = document.getElementById(conteudoId);
     const botao = event.target;
     
-    // Fechar outros conteúdos abertos
-    document.querySelectorAll('.conteudo-expansivel').forEach(item => {
-        if (item.id !== conteudoId && item.classList.contains('aberto')) {
-            item.classList.remove('aberto');
-            // Resetar texto do botão de outros conteúdos
-            const outrosBotoes = document.querySelectorAll(`.btn-conheca[onclick*="${item.id}"]`);
-            outrosBotoes.forEach(btn => {
-                btn.textContent = 'Conheça mais';
-            });
-        }
-    });
+    resetConteudosAbertos(conteudoId);
     
-    // Alternar conteúdo atual
     const estaAberto = conteudo.classList.contains('aberto');
     
     if (estaAberto) {
@@ -367,7 +422,6 @@ function toggleConteudo(conteudoId) {
         conteudo.classList.add('aberto');
         botao.textContent = 'Fechar';
         
-        // Scroll suave para o conteúdo
         setTimeout(() => {
             conteudo.scrollIntoView({ 
                 behavior: 'smooth', 
@@ -377,15 +431,9 @@ function toggleConteudo(conteudoId) {
     }
 }
 
-// Fechar ao clicar fora (opcional)
+// Fechar ao clicar fora
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.conteudo-expansivel') && !e.target.classList.contains('btn-conheca')) {
-        document.querySelectorAll('.conteudo-expansivel.aberto').forEach(conteudo => {
-            conteudo.classList.remove('aberto');
-            // Resetar todos os botões
-            document.querySelectorAll('.btn-conheca').forEach(btn => {
-                btn.textContent = 'Conheça mais';
-            });
-        });
+        resetConteudosAbertos();
     }
 });

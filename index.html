@@ -1,30 +1,23 @@
-<!doctype html> <!-- Declara o tipo de documento como HTML5 -->
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" /> <!-- Define a codificação de caracteres para UTF-8 -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <!-- Configura a viewport para dispositivos móveis -->
-<title>Rede Apimel</title> <!-- Define o título da página exibido na aba do navegador -->
-<link rel="stylesheet" href="css/style.css">
- <!-- Linka o arquivo CSS para estilização da página -->
-<link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Pré-conecta para buscar fontes do Google Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Pré-conecta com crossorigin para fontes do Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Importa a fonte Roboto do Google Fonts -->
-<link rel="alternate" type="application/rss+xml" title="Rede Apimel - RSS" href="feed.xml"> <!-- Link para o feed RSS do site -->
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Rede Apimel</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="alternate" type="application/rss+xml" title="Rede Apimel - RSS" href="feed.xml">
 </head>
 
-
-
 <body>
-  <!-- Cabeçalho da página-->
   <header class="header">
-    <!-- Div para conter a logo do projeto -->
     <div id="logo">
       <img src="img/Logo da Rede Apimel.png" 
       width="300" alt="Logo de Abelha">
     </div>
 
-    <!-- Navegação principal do site -->
     <nav>
       <ul>
         <a href="#mudas">Mudas</a>
@@ -38,375 +31,297 @@
 
   <header class="header-parceiros">
     <div class="parceiros-container">
-
-    <a href="https://www.ufs.br/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.ufs.br/" target="_blank" rel="noopener noreferrer">
         <img src="img/logoUFS.png" alt="UfS"></a>
-
-    <a href="https://www.finep.gov.br/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.finep.gov.br/" target="_blank" rel="noopener noreferrer">
         <img src="img/logoFinep.webp" alt="FINEP"></a>
-
-    <a href="#" target="_blank" rel="noopener noreferrer">
+      <a href="#" target="_blank" rel="noopener noreferrer">
         <img src="img/APIMEL (1).png" alt="UFERSA"></a>
-
-    <a href="https://www.ufrb.edu.br/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.ufrb.edu.br/" target="_blank" rel="noopener noreferrer">
         <img src="img/APIMEL (2).png" alt="UFRB"></a>
-
-    <a href="https://www.ifs.edu.br/" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.ifs.edu.br/" target="_blank" rel="noopener noreferrer">
         <img src="img/APIMEL (3).png" alt="Instituto Federal"></a>
-
-    <a href="https://sergipetec.org.br/" target="_blank" rel="noopener noreferrer">
+      <a href="https://sergipetec.org.br/" target="_blank" rel="noopener noreferrer">
         <img src="img/APIMEL (4).png" alt="Sergipe Tec"></a>
-
-  </div>
+    </div>
   </header>
   
-<main>
+  <main>
+    <section class="banner-galeria">
+      <div class="slides">
+        <img src="img/sergipetec.png" alt="Banner 1" class="slide active">
+        <img src="img/parque-tecnologico-de-sergipe.jpg" alt="Banner 3" class="slide">
+      </div>
+    </section>
 
-<!-- Banner Galeria -->
-<section class="banner-galeria">
-  <div class="slides">
-    <img src="img/sergipetec.png" alt="Banner 1" class="slide active">
-    <img src="img/parque-tecnologico-de-sergipe.jpg" alt="Banner 3" class="slide">
-  </div>
-</section>
-
-
-  <!-- Seção Projeto Rede Apimel -->
-<section class="section" id="welcome">
-    <h2>Bem-vindo à Rede Apimel!</h2>
-    <div class="section-content">
-
-        <!-- Coluna das imagens com galeria -->
+    <section class="section" id="welcome">
+      <h2>Bem-vindo à Rede Apimel!</h2>
+      <div class="section-content">
         <div class="section-images">
-            <div class="gallery-container">
-                <img id="welcome-img" src="img/Logo da Rede Apimel.png" alt="Logo da Rede Apimel">
-            </div>
-            <div class="descricao" id="img-description">
-                <p>Conheça nossa missão e objetivos no projeto de apicultura sustentável.</p>
-                <!-- BOTÃO MODIFICADO -->
-                <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-projeto')">Conheça mais</button>
-            </div>
+          <div class="gallery-container">
+            <img id="welcome-img" src="img/Logo da Rede Apimel.png" alt="Logo da Rede Apimel">
+          </div>
+          <div class="descricao" id="img-description">
+            <p>Conheça nossa missão e objetivos no projeto de apicultura sustentável.</p>
+            <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-projeto')">Conheça mais</button>
+          </div>
         </div>
-
-        <!-- Coluna do texto -->
         <div class="section-text">
-            <p>A Rede Apimel é uma iniciativa pioneira que integra pesquisa científica, tecnologia e conhecimentos tradicionais para revolucionar a apicultura e meliponicultura na região Nordeste do Brasil.</p>
+          <p>A Rede Apimel é uma iniciativa pioneira que integra pesquisa científica, tecnologia e conhecimentos tradicionais para revolucionar a apicultura e meliponicultura na região Nordeste do Brasil.</p>
         </div>
+      </div>
 
-    </div>
-
-    <!-- CONTEÚDO EXPANSÍVEL - APRESENTAÇÃO DO PROJETO -->
-    <div id="conteudo-projeto" class="conteudo-expansivel">
+      <div id="conteudo-projeto" class="conteudo-expansivel">
         <div class="expansivel-content">
-            <div class="expansivel-texto">
-                <div class="expansivel-header">
-                    <h3>Rede Apimel: Inovação na Apicultura do Nordeste</h3>
-                    <p class="subtitulo">Conectando ciência, sustentabilidade e comunidades</p>
-                </div>
-                
-                <p>A <strong>Rede Apimel</strong> é uma iniciativa pioneira que integra <strong>pesquisa científica, tecnologia e conhecimentos tradicionais</strong> para revolucionar a apicultura e meliponicultura na região Nordeste do Brasil.</p>
-                
-                <h4>🎯 Nossa Missão</h4>
-                <p>Promover a <strong>transição ecológica</strong> nas cadeias produtivas do mel, transformando a apicultura em uma atividade economicamente viável, socialmente justa e ambientalmente sustentável.</p>
-                
-                <h4>🌱 Pilares do Projeto</h4>
-                <ul class="expansivel-lista">
-                    <li><strong>Pesquisa Científica:</strong> Desenvolvimento de tecnologias adaptadas ao semiárido</li>
-                    <li><strong>Conservação:</strong> Proteção de abelhas nativas e da flora melífera da caatinga</li>
-                    <li><strong>Inovação Tecnológica:</strong> Cultura de tecidos e melhoramento genético vegetal</li>
-                    <li><strong>Capacitação:</strong> Formação de apicultores e meliponicultores</li>
-                    <li><strong>Bioeconomia:</strong> Geração de renda através de produtos sustentáveis</li>
-                </ul>
-                
-                <h4>🔬 Áreas de Atuação</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🐝 Apicultura Sustentável</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Manejo racional de abelhas com ferrão</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🌿 Meliponicultura</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Criação de abelhas nativas sem ferrão</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🔬 Cultura de Tecidos</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Propagação de plantas melíferas</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>📊 Pesquisa Aplicada</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Palinologia e fenologia floral</p>
-                    </div>
-                </div>
-                
-                <h4>🤝 Parcerias Estratégicas</h4>
-                <p>Trabalhamos em conjunto com <strong>Universidade Federal de Sergipe (UFS), FINEP</strong> e outras instituições para garantir o sucesso e a replicabilidade do projeto em toda a região Nordeste.</p>
-                
-                <p><em>"Unindo tradição e inovação para construir uma apicultura mais sustentável e rentável para as comunidades do semiárido."</em></p>
+          <div class="expansivel-texto">
+            <div class="expansivel-header">
+              <h3>Rede Apimel: Inovação na Apicultura do Nordeste</h3>
+              <p class="subtitulo">Conectando ciência, sustentabilidade e comunidades</p>
             </div>
-            
-            <div class="expansivel-imagem">
-                <img src="img/apicultores.webp" alt="Projeto Rede Apimel - Apicultura sustentável">
-                <div style="text-align: center; margin-top: 15px; font-style: italic; color: #666; font-size: 0.9rem;">
-                    Equipe da Rede Apimel em atividade de campo
-                </div>
+            <p>A <strong>Rede Apimel</strong> é uma iniciativa pioneira que integra <strong>pesquisa científica, tecnologia e conhecimentos tradicionais</strong> para revolucionar a apicultura e meliponicultura na região Nordeste do Brasil.</p>
+            <h4>🎯 Nossa Missão</h4>
+            <p>Promover a <strong>transição ecológica</strong> nas cadeias produtivas do mel, transformando a apicultura em uma atividade economicamente viável, socialmente justa e ambientalmente sustentável.</p>
+            <h4>🌱 Pilares do Projeto</h4>
+            <ul class="expansivel-lista">
+              <li><strong>Pesquisa Científica:</strong> Desenvolvimento de tecnologias adaptadas ao semiárido</li>
+              <li><strong>Conservação:</strong> Proteção de abelhas nativas e da flora melífera da caatinga</li>
+              <li><strong>Inovação Tecnológica:</strong> Cultura de tecidos e melhoramento genético vegetal</li>
+              <li><strong>Capacitação:</strong> Formação de apicultores e meliponicultores</li>
+              <li><strong>Bioeconomia:</strong> Geração de renda através de produtos sustentáveis</li>
+            </ul>
+            <h4>🔬 Áreas de Atuação</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🐝 Apicultura Sustentável</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Manejo racional de abelhas com ferrão</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🌿 Meliponicultura</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Criação de abelhas nativas sem ferrão</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🔬 Cultura de Tecidos</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Propagação de plantas melíferas</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>📊 Pesquisa Aplicada</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Palinologia e fenologia floral</p>
+              </div>
             </div>
+            <h4>🤝 Parcerias Estratégicas</h4>
+            <p>Trabalhamos em conjunto com <strong>Universidade Federal de Sergipe (UFS), FINEP</strong> e outras instituições para garantir o sucesso e a replicabilidade do projeto em toda a região Nordeste.</p>
+            <p><em>"Unindo tradição e inovação para construir uma apicultura mais sustentável e rentável para as comunidades do semiárido."</em></p>
+          </div>
+          <div class="expansivel-imagem">
+            <img src="img/apicultores.webp" alt="Projeto Rede Apimel - Apicultura sustentável">
+            <div style="text-align: center; margin-top: 15px; font-style: italic; color: #666; font-size: 0.9rem;">
+              Equipe da Rede Apimel em atividade de campo
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="abelhas">
+      <h2>Abelhas</h2>
+      <div class="section-content">
+        <div class="section-images">
+          <img src="img/img.mel.jpg" alt="Abelhas coletando néctar">
+          <div class="descricao">
+            <p>Abelhas desempenhando seu papel na polinização e produção de mel.</p>
+            <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-abelhas')">Conheça mais</button>
+          </div>
+        </div>
+        <div class="section-text">
+          <p>As abelhas são fundamentais para o equilíbrio do ecossistema, garantindo a polinização de diversas plantas e a produção de mel.</p>
+        </div>
+      </div>
+
+      <div id="conteudo-abelhas" class="conteudo-expansivel">
+        <div class="expansivel-content">
+          <div class="expansivel-texto">
+            <div class="expansivel-header">
+              <h3>O Mundo Fascinante das Abelhas</h3>
+              <p class="subtitulo">Descubra a importância vital desses polinizadores</p>
+            </div>
+            <p>As <strong>abelhas</strong> são muito mais que produtoras de mel. Elas são <strong>engenheiras do ecossistema</strong>, responsáveis pela polinização de 70% das plantas cultivadas no Brasil.</p>
+            <ul class="expansivel-lista">
+              <li><strong>Polinização eficiente:</strong> Uma única abelha visita até 10 flores por minuto</li>
+              <li><strong>Biodiversidade:</strong> Existem mais de 300 espécies de abelhas nativas no Nordeste</li>
+              <li><strong>Produção alimentar:</strong> 90% das frutas dependem da polinização por abelhas</li>
+              <li><strong>Indicadores ambientais:</strong> Sua saúde reflete a qualidade do meio ambiente</li>
+            </ul>
+            <p>Na Rede Apimel, trabalhamos com <strong>espécies nativas adaptadas ao semiárido</strong>, promovendo a conservação e o uso sustentável desses importantes polinizadores.</p>
+          </div>
+          <div class="expansivel-imagem">
+            <img src="img/abelhas-detalhe.jpg" alt="Detalhes sobre abelhas nativas">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mudas">
+      <h2>Apicultura Sustentável</h2>
+      <div class="section-content">
+        <div class="section-images">
+          <img src="img/apicultores.webp" alt="Mudas de plantas">
+          <div class="descricao">
+            <p>Descrição da imagem mostrando mudas utilizadas na apicultura e na conservação ambiental.</p>
+            <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-mudas-apicultura')">Conheça mais</button>
+          </div>
+        </div>
+        <div class="section-text">
+          <p>As mudas desempenham um papel essencial na apicultura, fornecendo recursos para as abelhas e auxiliando na conservação do ecossistema.</p>
+        </div>
+      </div>
+
+      <div id="conteudo-mudas-apicultura" class="conteudo-expansivel">
+        <div class="expansivel-content">
+          <div class="expansivel-texto">
+            <div class="expansivel-header">
+              <h3>Apicultura Sustentável e Produção de Mudas</h3>
+              <p class="subtitulo">Como as mudas melíferas transformam a apicultura no semiárido</p>
+            </div>
+            <p>A <strong>integração entre produção de mudas e apicultura sustentável</strong> é a base do nosso trabalho na Rede Apimel. Cultivamos espécies vegetais estratégicas que servem como <strong>fontes de alimento para as abelhas</strong> throughout the year.</p>
+            <ul class="expansivel-lista">
+              <li><strong>Mudas melíferas nativas:</strong> Espécies da caatinga adaptadas ao clima semiárido</li>
+              <li><strong>Floração escalonada:</strong> Garantimos alimento para as abelhas em todas as estações</li>
+              <li><strong>Conservação genética:</strong> Preservamos espécies vegetais ameaçadas do bioma</li>
+              <li><strong>Recuperação de áreas:</strong> Reflorestamento com plantas apícolas</li>
+              <li><strong>Diversidade floral:</strong> Melhor qualidade e variedade dos produtos apícolas</li>
+              <li><strong>Economia circular:</strong> Agricultores produzem mudas e mantêm apiários</li>
+            </ul>
+            <p><strong>Espécies prioritárias que cultivamos:</strong></p>
+            <ul class="expansivel-lista">
+              <li><strong>Aroeira-do-sertão:</strong> Floração prolongada e alta produção de néctar</li>
+              <li><strong>Umburana-de-cheiro:</strong> Mel de qualidade superior</li>
+              <li><strong>Angico:</strong> Fonte de pólen proteico</li>
+              <li><strong>Mulata:</strong> Resistente à seca e muito atrativa para abelhas</li>
+              <li><strong>Catingueira:</strong> Floração no período mais seco</li>
+            </ul>
+            <p>Através da <strong>cultura de tecidos e técnicas de propagação avançadas</strong>, multiplicamos essas espécies de forma eficiente, garantindo o sucesso da apicultura sustentável na região.</p>
+          </div>
+          <div class="expansivel-imagem">
+            <img src="img/trabalho2.jpg" alt="Integração entre mudas melíferas e apicultura sustentável">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cultura-tecido">
+      <h2>Cultura de Tecidos</h2>
+      <div class="section-content">
+        <div class="section-images">
+          <img src="img/cult.jpg" alt="Cultura de tecidos em laboratório">
+          <div class="descricao">
+            <p>Imagem mostrando técnicas de cultura de tecidos aplicadas em pesquisa e conservação.</p>
+            <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-cultura-tecidos')">Conheça mais</button>
+          </div>
+        </div>
+        <div class="section-text">
+          <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa científica, conservação de espécies e estudos de genética vegetal.</p>
+        </div>
+      </div>
+
+      <div id="conteudo-cultura-tecidos" class="conteudo-expansivel">
+        <div class="expansivel-content">
+          <div class="expansivel-texto">
+            <div class="expansivel-header">
+              <h3>Cultura de Tecidos na Apicultura Sustentável</h3>
+              <p class="subtitulo">Tecnologia de ponta para conservação e produção de plantas melíferas</p>
+            </div>
+            <p>A <strong>cultura de tecidos vegetais</strong> é uma ferramenta biotecnológica fundamental na Rede Apimel, permitindo a <strong>propagação em larga escala de espécies melíferas nativas</strong> da caatinga que são essenciais para a apicultura sustentável.</p>
+            <h4>🔬 O que é Cultura de Tecidos?</h4>
+            <p>É uma técnica que permite o <strong>cultivo de células, tecidos ou órgãos vegetais em condições assépticas</strong>, usando meio de cultura artificial. Esta tecnologia nos permite:</p>
+            <ul class="expansivel-lista">
+              <li><strong>Propagação rápida:</strong> Produzir milhares de mudas a partir de uma única planta matriz</li>
+              <li><strong>Conservação genética:</strong> Manter o banco de germoplasma de espécies ameaçadas</li>
+              <li><strong>Sanidade vegetal:</strong> Obter plantas livres de doenças e pragas</li>
+              <li><strong>Independência sazonal:</strong> Produzir mudas durante todo o ano</li>
+            </ul>
+            <h4>🌿 Aplicações na Rede Apimel</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🔄 Propagação em Massa</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Multiplicação de espécies melíferas nativas em grande escala</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>💾 Banco de Germoplasma</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Conservação in vitro de material genético valioso</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🔍 Pesquisa Científica</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Estudos de fisiologia e desenvolvimento vegetal</p>
+              </div>
+              <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
+                <strong>🌱 Melhoramento Genético</strong>
+                <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Seleção de plantas com melhor produção de néctar</p>
+              </div>
+            </div>
+            <h4>🎯 Espécies Prioritárias</h4>
+            <p>Focamos em espécies da caatinga com <strong>alto potencial melífero e adaptação ao semiárido</strong>:</p>
+            <ul class="expansivel-lista">
+              <li><strong>Aroeira (Myracrodruon urundeuva):</strong> Floração prolongada, alta produção de néctar</li>
+              <li><strong>Umburana (Commiphora leptophloeos):</strong> Mel de qualidade superior, muito valorizado</li>
+              <li><strong>Angico (Anadenanthera colubrina):</strong> Fonte importante de pólen proteico</li>
+              <li><strong>Pau-ferro (Caesalpinia ferrea):</strong> Resistente à seca, floração abundante</li>
+              <li><strong>Catingueira (Caesalpinia pyramidalis):</strong> Floresce no período mais seco do ano</li>
+            </ul>
+            <h4>⚙️ Etapas do Processo</h4>
+            <ol style="padding-left: 20px; color: #333; line-height: 1.6;">
+              <li><strong>Seleção de matrizes:</strong> Escolha de plantas adultas com características desejáveis</li>
+              <li><strong>Estabelecimento in vitro:</strong> Introdução do explante no meio de cultura</li>
+              <li><strong>Multiplicação:</strong> Produção de brotações em grande quantidade</li>
+              <li><strong>Enraizamento:</strong> Formação do sistema radicular das mudas</li>
+              <li><strong>Aclimatização:</strong> Adaptação das plantas às condições externas</li>
+            </ol>
+            <p>Através desta tecnologia, a Rede Apimel consegue <strong>produzir mudas de alta qualidade genética e fitossanitária</strong>, garantindo o sucesso dos reflorestamentos com espécies melíferas e fortalecendo a apicultura sustentável na região.</p>
+            <div style="background: rgba(255, 236, 179, 0.5); padding: 20px; border-radius: 10px; margin-top: 25px; border-left: 4px solid #c75c1e;">
+              <strong>💡 Impacto na Apicultura:</strong>
+              <p style="margin: 10px 0 0 0;">A cultura de tecidos permite o <strong>fornecimento contínuo de mudas melíferas</strong> para os apicultores, garantindo alimento para as abelhas durante todo o ano e aumentando a produtividade dos apiários em até 40%.</p>
+            </div>
+          </div>
+          <div class="expansivel-imagem">
+            <img src="img/trabalho.jpg" alt="Técnicas de cultura de tecidos vegetais">
+            <div style="text-align: center; margin-top: 15px; font-style: italic; color: #666; font-size: 0.9rem;">
+              Laboratório de cultura de tecidos da Rede Apimel
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="main.js"></script>
+  </main>
+
+  <section class="news" id="noticias">
+    <h2>Notícias</h2>
+    <div id="rss-feed" class="news-container"></div>
+  </section>
+
+  <footer id="contatos"> 
+    <h2>Contatos</h2>
+    <div class="footer-col">
+      <p>Email: redeapimel@gmail.com</p>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/redeapimel?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram: @redeapimel</a> 
+      </div>
     </div>
-</section>
 
+    <div class="footer-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.3581049614555!2d-37.10707258375001!3d-10.930671948864243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71ab33547d5b3c3%3A0x1576095325c92417!2sCAMPO%20BIOTECNOLOGIA%20VEGETAL%20E%20COMERCIO%20LTDA!5e0!3m2!1spt-BR!2sbr!4v1759171421839!5m2!1spt-BR!2sbr"
+        width="100%" 
+        height="200" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
 
-<script src="main.js"></script>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Rede Apimel. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 </body>
 </html>
-
-
-  <!-- Seção sobre Abelhas -->
-<section class="section" id="abelhas">
-    <h2>Abelhas</h2>
-    <div class="section-content">
-
-        <!-- Coluna das imagens -->
-        <div class="section-images">
-            <img src="img/img.mel.jpg" alt="Abelhas coletando néctar">
-            <div class="descricao">
-                <p>Abelhas desempenhando seu papel na polinização e produção de mel.</p>
-                <!-- BOTÃO MODIFICADO -->
-                <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-abelhas')">Conheça mais</button>
-            </div>
-        </div>
-
-        <!-- Coluna do texto -->
-        <div class="section-text">
-            <p>As abelhas são fundamentais para o equilíbrio do ecossistema, garantindo a polinização de diversas plantas e a produção de mel.</p>
-        </div>
-
-    </div>
-
-    <!-- CONTEÚDO EXPANSÍVEL - ADICIONE ISSO APÓS O SECTION-CONTENT -->
-    <div id="conteudo-abelhas" class="conteudo-expansivel">
-        <div class="expansivel-content">
-            <div class="expansivel-texto">
-                <div class="expansivel-header">
-                    <h3>O Mundo Fascinante das Abelhas</h3>
-                    <p class="subtitulo">Descubra a importância vital desses polinizadores</p>
-                </div>
-                
-                <p>As <strong>abelhas</strong> são muito mais que produtoras de mel. Elas são <strong>engenheiras do ecossistema</strong>, responsáveis pela polinização de 70% das plantas cultivadas no Brasil.</p>
-                
-                <ul class="expansivel-lista">
-                    <li><strong>Polinização eficiente:</strong> Uma única abelha visita até 10 flores por minuto</li>
-                    <li><strong>Biodiversidade:</strong> Existem mais de 300 espécies de abelhas nativas no Nordeste</li>
-                    <li><strong>Produção alimentar:</strong> 90% das frutas dependem da polinização por abelhas</li>
-                    <li><strong>Indicadores ambientais:</strong> Sua saúde reflete a qualidade do meio ambiente</li>
-                </ul>
-                
-                <p>Na Rede Apimel, trabalhamos com <strong>espécies nativas adaptadas ao semiárido</strong>, promovendo a conservação e o uso sustentável desses importantes polinizadores.</p>
-            </div>
-            
-            <div class="expansivel-imagem">
-                <img src="img/abelhas-detalhe.jpg" alt="Detalhes sobre abelhas nativas">
-            </div>
-        </div>
-    </div>
-</section>
-
-  <!-- Seção sobre Apicultura Sustentável -->
-<section class="section" id="mudas">
-    <h2>Apicultura Sustentável</h2>
-    <div class="section-content">
-
-        <!-- Coluna das imagens -->
-        <div class="section-images">
-            <img src="img/apicultores.webp" alt="Mudas de plantas">
-            <div class="descricao">
-                <p>Descrição da imagem mostrando mudas utilizadas na apicultura e na conservação ambiental.</p>
-                <!-- BOTÃO MODIFICADO -->
-                <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-mudas-apicultura')">Conheça mais</button>
-            </div>
-        </div>
-
-        <!-- Coluna do texto -->
-        <div class="section-text">
-            <p>As mudas desempenham um papel essencial na apicultura, fornecendo recursos para as abelhas e auxiliando na conservação do ecossistema.</p>
-        </div>
-
-    </div>
-
-    <!-- CONTEÚDO EXPANSÍVEL - APICULTURA SUSTENTÁVEL -->
-    <div id="conteudo-mudas-apicultura" class="conteudo-expansivel">
-        <div class="expansivel-content">
-            <div class="expansivel-texto">
-                <div class="expansivel-header">
-                    <h3>Apicultura Sustentável e Produção de Mudas</h3>
-                    <p class="subtitulo">Como as mudas melíferas transformam a apicultura no semiárido</p>
-                </div>
-                
-                <p>A <strong>integração entre produção de mudas e apicultura sustentável</strong> é a base do nosso trabalho na Rede Apimel. Cultivamos espécies vegetais estratégicas que servem como <strong>fontes de alimento para as abelhas</strong> throughout the year.</p>
-                
-                <ul class="expansivel-lista">
-                    <li><strong>Mudas melíferas nativas:</strong> Espécies da caatinga adaptadas ao clima semiárido</li>
-                    <li><strong>Floração escalonada:</strong> Garantimos alimento para as abelhas em todas as estações</li>
-                    <li><strong>Conservação genética:</strong> Preservamos espécies vegetais ameaçadas do bioma</li>
-                    <li><strong>Recuperação de áreas:</strong> Reflorestamento com plantas apícolas</li>
-                    <li><strong>Diversidade floral:</strong> Melhor qualidade e variedade dos produtos apícolas</li>
-                    <li><strong>Economia circular:</strong> Agricultores produzem mudas e mantêm apiários</li>
-                </ul>
-                
-                <p><strong>Espécies prioritárias que cultivamos:</strong></p>
-                <ul class="expansivel-lista">
-                    <li><strong>Aroeira-do-sertão:</strong> Floração prolongada e alta produção de néctar</li>
-                    <li><strong>Umburana-de-cheiro:</strong> Mel de qualidade superior</li>
-                    <li><strong>Angico:</strong> Fonte de pólen proteico</li>
-                    <li><strong>Mulata:</strong> Resistente à seca e muito atrativa para abelhas</li>
-                    <li><strong>Catingueira:</strong> Floração no período mais seco</li>
-                </ul>
-                
-                <p>Através da <strong>cultura de tecidos e técnicas de propagação avançadas</strong>, multiplicamos essas espécies de forma eficiente, garantindo o sucesso da apicultura sustentável na região.</p>
-            </div>
-            
-            <div class="expansivel-imagem">
-                <img src="img/trabalho2.jpg" alt="Integração entre mudas melíferas e apicultura sustentável">
-            </div>
-        </div>
-    </div>
-</section>
-
- <!-- Seção sobre Cultura de Tecidos -->
-<section class="section" id="culturatecido">
-    <h2>Cultura de Tecidos</h2>
-    <div class="section-content">
-
-        <!-- Coluna das imagens -->
-        <div class="section-images">
-            <img src="img/cult.jpg" alt="Cultura de tecidos em laboratório">
-            <div class="descricao">
-                <p>Imagem mostrando técnicas de cultura de tecidos aplicadas em pesquisa e conservação.</p>
-                <!-- BOTÃO MODIFICADO -->
-                <button class="btn-conheca expansivel" onclick="toggleConteudo('conteudo-cultura-tecidos')">Conheça mais</button>
-            </div>
-        </div>
-
-        <!-- Coluna do texto -->
-        <div class="section-text">
-            <p>Explicação sobre as técnicas e aplicações da cultura de tecidos em pesquisa científica, conservação de espécies e estudos de genética vegetal.</p>
-        </div>
-
-    </div>
-
-    <!-- CONTEÚDO EXPANSÍVEL - CULTURA DE TECIDOS -->
-    <div id="conteudo-cultura-tecidos" class="conteudo-expansivel">
-        <div class="expansivel-content">
-            <div class="expansivel-texto">
-                <div class="expansivel-header">
-                    <h3>Cultura de Tecidos na Apicultura Sustentável</h3>
-                    <p class="subtitulo">Tecnologia de ponta para conservação e produção de plantas melíferas</p>
-                </div>
-                
-                <p>A <strong>cultura de tecidos vegetais</strong> é uma ferramenta biotecnológica fundamental na Rede Apimel, permitindo a <strong>propagação em larga escala de espécies melíferas nativas</strong> da caatinga que são essenciais para a apicultura sustentável.</p>
-                
-                <h4>🔬 O que é Cultura de Tecidos?</h4>
-                <p>É uma técnica que permite o <strong>cultivo de células, tecidos ou órgãos vegetais em condições assépticas</strong>, usando meio de cultura artificial. Esta tecnologia nos permite:</p>
-                
-                <ul class="expansivel-lista">
-                    <li><strong>Propagação rápida:</strong> Produzir milhares de mudas a partir de uma única planta matriz</li>
-                    <li><strong>Conservação genética:</strong> Manter o banco de germoplasma de espécies ameaçadas</li>
-                    <li><strong>Sanidade vegetal:</strong> Obter plantas livres de doenças e pragas</li>
-                    <li><strong>Independência sazonal:</strong> Produzir mudas durante todo o ano</li>
-                </ul>
-                
-                <h4>🌿 Aplicações na Rede Apimel</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🔄 Propagação em Massa</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Multiplicação de espécies melíferas nativas em grande escala</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>💾 Banco de Germoplasma</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Conservação in vitro de material genético valioso</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🔍 Pesquisa Científica</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Estudos de fisiologia e desenvolvimento vegetal</p>
-                    </div>
-                    <div style="background: rgba(199, 92, 30, 0.1); padding: 15px; border-radius: 8px;">
-                        <strong>🌱 Melhoramento Genético</strong>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem;">Seleção de plantas com melhor produção de néctar</p>
-                    </div>
-                </div>
-                
-                <h4>🎯 Espécies Prioritárias</h4>
-                <p>Focamos em espécies da caatinga com <strong>alto potencial melífero e adaptação ao semiárido</strong>:</p>
-                
-                <ul class="expansivel-lista">
-                    <li><strong>Aroeira (Myracrodruon urundeuva):</strong> Floração prolongada, alta produção de néctar</li>
-                    <li><strong>Umburana (Commiphora leptophloeos):</strong> Mel de qualidade superior, muito valorizado</li>
-                    <li><strong>Angico (Anadenanthera colubrina):</strong> Fonte importante de pólen proteico</li>
-                    <li><strong>Pau-ferro (Caesalpinia ferrea):</strong> Resistente à seca, floração abundante</li>
-                    <li><strong>Catingueira (Caesalpinia pyramidalis):</strong> Floresce no período mais seco do ano</li>
-                </ul>
-                
-                <h4>⚙️ Etapas do Processo</h4>
-                <ol style="padding-left: 20px; color: #333; line-height: 1.6;">
-                    <li><strong>Seleção de matrizes:</strong> Escolha de plantas adultas com características desejáveis</li>
-                    <li><strong>Estabelecimento in vitro:</strong> Introdução do explante no meio de cultura</li>
-                    <li><strong>Multiplicação:</strong> Produção de brotações em grande quantidade</li>
-                    <li><strong>Enraizamento:</strong> Formação do sistema radicular das mudas</li>
-                    <li><strong>Aclimatização:</strong> Adaptação das plantas às condições externas</li>
-                </ol>
-                
-                <p>Através desta tecnologia, a Rede Apimel consegue <strong>produzir mudas de alta qualidade genética e fitossanitária</strong>, garantindo o sucesso dos reflorestamentos com espécies melíferas e fortalecendo a apicultura sustentável na região.</p>
-                
-                <div style="background: rgba(255, 236, 179, 0.5); padding: 20px; border-radius: 10px; margin-top: 25px; border-left: 4px solid #c75c1e;">
-                    <strong>💡 Impacto na Apicultura:</strong>
-                    <p style="margin: 10px 0 0 0;">A cultura de tecidos permite o <strong>fornecimento contínuo de mudas melíferas</strong> para os apicultores, garantindo alimento para as abelhas durante todo o ano e aumentando a produtividade dos apiários em até 40%.</p>
-                </div>
-            </div>
-            
-            <div class="expansivel-imagem">
-                <img src="img/trabalho.jpg" alt="Técnicas de cultura de tecidos vegetais">
-                <div style="text-align: center; margin-top: 15px; font-style: italic; color: #666; font-size: 0.9rem;">
-                    Laboratório de cultura de tecidos da Rede Apimel
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-</main>
-<link rel="stylesheet" href="style.css">
-
-<!-- Notícias -->
-<section class="news" id="noticias">
-  <h2>Notícias</h2>
-  <div id="rss-feed" class="news-container"></div>
-</section>
-
-<!-- Rodapé -->
-<footer id="contatos"> 
-  <h2>Contatos</h2>
-
-  <div class="footer-col">
-    <p>Email: redeapimel@gmail.com</p>
-     
-    <div class="footer-links">
-      <a href="https://www.instagram.com/redeapimel?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram: @redeapimel</a> 
-    </div>
-  </div>
-
- <!-- Mapa -->
-  <div class="footer-map">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.3581049614555!2d-37.10707258375001!3d-10.930671948864243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x71ab33547d5b3c3%3A0x1576095325c92417!2sCAMPO%20BIOTECNOLOGIA%20VEGETAL%20E%20COMERCIO%20LTDA!5e0!3m2!1spt-BR!2sbr!4v1759171421839!5m2!1spt-BR!2sbr"
-      width="100%" 
-      height="200" 
-      style="border:0;" 
-      allowfullscreen="" 
-      loading="lazy">
-    </iframe>
-  </div>
-
-  <!-- Linha final -->
-  <div class="footer-bottom">
-    <p>&copy; 2025 Rede Apimel. Todos os direitos reservados.</p>
-  </div>
-</footer>
